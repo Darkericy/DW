@@ -2,19 +2,33 @@
 #include <memory>
 #include <unordered_set>
 #include <fstream>
+#include <sstream>
+#include <vector>
 
 namespace DW{
+    class Logger;
     class LogEvent{
     public:
         typedef std::shared_ptr<LogEvent> ptr;
 
+        std::string getFile() { return m_file; };
+        std::string getContent() { return m_content; };
+        std::string getThreadName() { return m_threadname; };
+        uint32_t getLine() {return m_line; };
+        uint32_t getThreadID() { return m_threadID; };
+        uint32_t getFiberID() { return m_fiberID; };
+        uint64_t getTime() { return m_time; };
+        uint64_t getElapse() { return m_elapse; };
+
     private:
-        std::string m_file;     //文件名
-        std::string m_content;  //日志信息
-        uint32_t m_line;        //行号
-        uint32_t m_threadID;    //线程号
-        uint32_t m_fiberID;     //携程号
-        uint64_t m_time;        //时间戳
+        std::string m_file;         //文件名
+        std::string m_content;      //日志信息
+        std::string m_threadname;   //线程名
+        uint32_t m_line;            //行号
+        uint32_t m_threadID;        //线程号
+        uint32_t m_fiberID;         //携程号
+        uint64_t m_time;            //时间戳
+        uint64_t m_elapse;          //累计毫秒
     };
 
     class LogLevel{
@@ -26,13 +40,35 @@ namespace DW{
             ERROR = 4,
             FATAL = 5
         };
+
+        static std::string ToString(Level level);
     };
 
     class LogFormatter{
     public:
         typedef std::shared_ptr<LogFormatter> ptr;
 
-        std::string formatter(LogLevel::Level level, LogEvent::ptr event);
+        LogFormatter(const std::string& pattern);
+
+        std::string formatter(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event);
+
+        void init();
+
+        void setPattern(const std::string& pattern){ m_pattern = pattern; };
+        std::string getPattern(){ return m_pattern; };
+
+        class FormatterItem{
+        public: 
+            typedef std::shared_ptr<FormatterItem> ptr;
+            
+            virtual ~FormatterItem() {};
+
+            virtual void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
+        };
+
+    private:
+        std::string m_pattern;
+        std::vector<FormatterItem::ptr> m_itemlist;
     };
 
     class LogAppender{
@@ -40,7 +76,7 @@ namespace DW{
         typedef std::shared_ptr<LogAppender> ptr;
 
         virtual ~LogAppender() {};
-        virtual void log(LogLevel::Level level, LogEvent::ptr event) = 0;
+        virtual void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 
         void setFormatter(LogFormatter::ptr formatter){ m_formatter = formatter; };
         LogFormatter::ptr getFormatter() { return m_formatter; };
@@ -50,7 +86,7 @@ namespace DW{
         LogFormatter::ptr m_formatter;
     };
 
-    class Logger{
+    class Logger: public std::enable_shared_from_this<Logger>{
     public: 
         typedef std::shared_ptr<Logger> ptr;
 
@@ -70,6 +106,8 @@ namespace DW{
         void insertAppender(LogAppender::ptr appender);
         void eraseAppender(LogAppender::ptr appender);
 
+        std::string getName() { return m_logname; };
+
     private:    
         std::string m_logname;                          
         LogLevel::Level m_level;
@@ -80,14 +118,14 @@ namespace DW{
     public: 
         typedef std::shared_ptr<StdLogAppender> ptr;
         
-        void log(LogLevel::Level level, LogEvent::ptr event) override;
+        void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
     };
 
     class FileLogAppender: public LogAppender{
     public: 
         typedef std::shared_ptr<FileLogAppender> ptr;
         
-        void log(LogLevel::Level level, LogEvent::ptr event) override;
+        void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
 
         bool reopen();
 
@@ -95,4 +133,4 @@ namespace DW{
         std::string m_filename;
         std::ofstream m_filestream;
     };
-}
+};
