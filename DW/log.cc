@@ -1,20 +1,20 @@
 #include "log.h"
 
 namespace DW{
-    void Logger::debug(LogLevel::Level level, LogEvent::ptr event){
-        log(level, event);
+    void Logger::debug(LogEvent::ptr event){
+        log(LogLevel::DEBUG, event);
     }
-    void Logger::info(LogLevel::Level level, LogEvent::ptr event){
-        log(level, event);
+    void Logger::info(LogEvent::ptr event){
+        log(LogLevel::INFO, event);
     }
-    void Logger::warn(LogLevel::Level level, LogEvent::ptr event){
-        log(level, event);
+    void Logger::warn(LogEvent::ptr event){
+        log(LogLevel::WARN, event);
     }
-    void Logger::error(LogLevel::Level level, LogEvent::ptr event){
-        log(level, event);
+    void Logger::error(LogEvent::ptr event){
+        log(LogLevel::ERROR, event);
     }
-    void Logger::fatal(LogLevel::Level level, LogEvent::ptr event){
-        log(level, event);
+    void Logger::fatal(LogEvent::ptr event){
+        log(LogLevel::FATAL, event);
     }
 
     void Logger::log(LogLevel::Level level, LogEvent::ptr event){
@@ -41,5 +41,24 @@ namespace DW{
         if(m_appender.find(appender) != m_appender.end()){
             m_appender.erase(appender);
         }
+    }
+
+    void StdLogAppender::log(LogLevel::Level level, LogEvent::ptr event){
+        if(level > m_level){
+            m_formatter->formatter(level, event);
+        }
+    }
+
+    void FileLogAppender::log(LogLevel::Level level, LogEvent::ptr event){
+        if(level > m_level){
+            m_formatter->formatter(level, event);
+        }
+    }
+
+    bool FileLogAppender::reopen(){
+        if(!m_filestream){
+            m_filestream.open(m_filename);
+        }
+        return !!m_filestream;      //不得不说这里两个否定符号是真的让我感叹，这个大佬在各个细节上真的很让我很佩服
     }
 }

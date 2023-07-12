@@ -1,6 +1,7 @@
 #include <string>
 #include <memory>
 #include <unordered_set>
+#include <fstream>
 
 namespace DW{
     class LogEvent{
@@ -38,19 +39,26 @@ namespace DW{
     public:
         typedef std::shared_ptr<LogAppender> ptr;
 
-        virtual ~LogAppender();
-        void log(LogLevel::Level level, LogEvent::ptr event);
+        virtual ~LogAppender() {};
+        virtual void log(LogLevel::Level level, LogEvent::ptr event) = 0;
+
+        void setFormatter(LogFormatter::ptr formatter){ m_formatter = formatter; };
+        LogFormatter::ptr getFormatter() { return m_formatter; };
+
+    protected:
+        LogLevel::Level m_level;
+        LogFormatter::ptr m_formatter;
     };
 
     class Logger{
     public: 
         typedef std::shared_ptr<Logger> ptr;
 
-        void debug(LogLevel::Level level, LogEvent::ptr event);
-        void info(LogLevel::Level level, LogEvent::ptr event);
-        void warn(LogLevel::Level level, LogEvent::ptr event);
-        void error(LogLevel::Level level, LogEvent::ptr event);
-        void fatal(LogLevel::Level level, LogEvent::ptr event);
+        void debug(LogEvent::ptr event);
+        void info(LogEvent::ptr event);
+        void warn(LogEvent::ptr event);
+        void error(LogEvent::ptr event);
+        void fatal(LogEvent::ptr event);
 
         void log(LogLevel::Level level, LogEvent::ptr event);
 
@@ -69,10 +77,22 @@ namespace DW{
     };
 
     class StdLogAppender: public LogAppender{
-
+    public: 
+        typedef std::shared_ptr<StdLogAppender> ptr;
+        
+        void log(LogLevel::Level level, LogEvent::ptr event) override;
     };
 
     class FileLogAppender: public LogAppender{
+    public: 
+        typedef std::shared_ptr<FileLogAppender> ptr;
+        
+        void log(LogLevel::Level level, LogEvent::ptr event) override;
 
+        bool reopen();
+
+    private:    
+        std::string m_filename;
+        std::ofstream m_filestream;
     };
 }
