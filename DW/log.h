@@ -8,12 +8,12 @@ namespace DW{
         typedef std::shared_ptr<LogEvent> ptr;
 
     private:
-        std::string m_file;
-        std::string m_content;
-        uint32_t m_line;
-        uint32_t m_threadID;
-        uint32_t m_fiberID;
-        uint64_t m_time;
+        std::string m_file;     //文件名
+        std::string m_content;  //日志信息
+        uint32_t m_line;        //行号
+        uint32_t m_threadID;    //线程号
+        uint32_t m_fiberID;     //携程号
+        uint64_t m_time;        //时间戳
     };
 
     class LogLevel{
@@ -46,10 +46,24 @@ namespace DW{
     public: 
         typedef std::shared_ptr<Logger> ptr;
 
+        void debug(LogLevel::Level level, LogEvent::ptr event);
+        void info(LogLevel::Level level, LogEvent::ptr event);
+        void warn(LogLevel::Level level, LogEvent::ptr event);
+        void error(LogLevel::Level level, LogEvent::ptr event);
+        void fatal(LogLevel::Level level, LogEvent::ptr event);
+
         void log(LogLevel::Level level, LogEvent::ptr event);
 
+        //设置和返回等级
+        LogLevel::Level getLevel();
+        void setLevel(LogLevel::Level level);
+
+        //插入和删除输出地
+        void insertAppender(LogAppender::ptr appender);
+        void eraseAppender(LogAppender::ptr appender);
+
     private:    
-        std::string m_logname;
+        std::string m_logname;                          
         LogLevel::Level m_level;
         std::unordered_set<LogAppender::ptr> m_appender;
     };
