@@ -1,0 +1,4 @@
+/home/dakericy/DK_pratice/DW/CMakeFiles/DW.dir
+/home/dakericy/DK_pratice/DW/CMakeFiles/testlog.dir
+/home/dakericy/DK_pratice/DW/CMakeFiles/edit_cache.dir
+/home/dakericy/DK_pratice/DW/CMakeFiles/rebuild_cache.dir
