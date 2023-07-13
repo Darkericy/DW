@@ -4,6 +4,9 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <iostream>
+#include <map>
+#include <functional>
 
 namespace DW{
     class Logger;
@@ -68,7 +71,9 @@ namespace DW{
 
     private:
         std::string m_pattern;
-        std::vector<FormatterItem::ptr> m_itemlist;
+        std::vector<FormatterItem::ptr> m_items;
+
+        bool m_error = false;   //检查格式是否有错
     };
 
     class LogAppender{
