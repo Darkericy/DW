@@ -1,11 +1,22 @@
 #include "log.h"
 
 namespace DW{
+    LogEvent::LogEvent(): m_file("default"), m_content("default"), m_threadname("default"),
+                        m_line(-1), m_threadID(-1), m_fiberID(-1), m_time(-1), m_elapse(-1){
+
+    };
+    LogEvent::LogEvent(const std::string& file, const std::string& content, const std::string& threadname,
+            uint32_t line, uint32_t threadID, uint32_t fiberID, uint32_t time, uint32_t elapse):
+            m_file(file), m_content(content), m_threadname(threadname),
+            m_line(line), m_threadID(threadID), m_fiberID(fiberID), m_time(time), m_elapse(elapse){
+
+            }
+
     class StringFormatItem : public LogFormatter::FormatterItem {
     public:
         StringFormatItem(const std::string& str)
             :m_string(str) {}
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override {
             os << m_string;
         }
     private:
@@ -15,7 +26,7 @@ namespace DW{
     public:
         MessageFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getContent();
         };
     };
@@ -23,7 +34,7 @@ namespace DW{
     public:        
         LevelFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << LogLevel::ToString(level);
         };
     };
@@ -31,7 +42,7 @@ namespace DW{
     public:
         ElapseFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getElapse();
         };
     };
@@ -39,7 +50,7 @@ namespace DW{
     public:
         NameFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << logger->getName();
         };
     };
@@ -47,7 +58,7 @@ namespace DW{
     public:
         ThreadIdFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getThreadID();
         };
     };
@@ -55,7 +66,7 @@ namespace DW{
     public:
         NewLineFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << std::endl;
         };
     };
@@ -68,7 +79,7 @@ namespace DW{
         }
 
         //这部分属于我最不熟悉的部分
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             struct tm tm;
             time_t time = event->getTime();
             localtime_r(&time, &tm);
@@ -84,7 +95,7 @@ namespace DW{
     public:
         FilenameFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getFile();
         };
     };
@@ -92,7 +103,7 @@ namespace DW{
     public:
         LineFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getLine();
         };
     };
@@ -100,7 +111,7 @@ namespace DW{
     public:
         TabFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << "\t";
         };
     };
@@ -108,7 +119,7 @@ namespace DW{
     public:
         FiberIdFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getFiberID();
         };
     };
@@ -116,10 +127,14 @@ namespace DW{
     public:
         ThreadNameFormatItem(const std::string& = "") {};
 
-        void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override{
+        void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override{
             os << event->getThreadName();
         };
     };
+
+    Logger::Logger(const std::string& name): m_logname(name), m_level(LogLevel::DEBUG){
+
+    }
 
     void Logger::debug(LogEvent::ptr event){
         log(LogLevel::DEBUG, event);
@@ -139,9 +154,14 @@ namespace DW{
 
     void Logger::log(LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
+            //std::cout << "获取自己的智能指针之前" << std::endl;
+
             auto self = shared_from_this();
 
+            //std::cout << "Logger::log" << std::endl;
+
             for(const auto& app: m_appender){
+                //std::cout << "Logger::log in for" << std::endl;
                 app->log(self, level, event);
             }
         }
@@ -165,15 +185,17 @@ namespace DW{
         }
     }
 
-    void StdLogAppender::log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event){
-        if(level > m_level){
+    void StdLogAppender::log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
+        if(level >= m_level){
+            //std::cout << "StdLogAppender::log" << std::endl;
             m_formatter->formatter(logger, level, event);
         }
     }
 
-    void FileLogAppender::log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event){
-        if(level > m_level){
-            m_formatter->formatter(logger, level, event);
+    void FileLogAppender::log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
+        if(level >= m_level){
+            //std::cout << "FileLogAppender::log" << std::endl;
+            m_filestream << m_formatter->formatter(logger, level, event);
         }
     }
 
@@ -203,14 +225,19 @@ namespace DW{
         return "UNKNOW";
     }
 
-    LogFormatter::LogFormatter(const std::string& pattern): m_pattern(pattern){
+    LogFormatter::LogFormatter(const std::string& pattern = "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"): 
+    m_pattern(pattern), m_items(){
+        //std::cout << m_pattern << std::endl;
         init();
+        //std::cout << m_items.size() << std::endl;
     }
 
-    std::string LogFormatter::formatter(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event){
+    std::string LogFormatter::formatter(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
         std::stringstream ss;
 
-        for(const auto& item: m_items){
+        //std::cout << m_pattern << std::endl;
+        for(auto& item: m_items){
+            //std::cout << "LogFormatter::formatter in for" << std::endl;
             item->format(ss, logger, level, event);
         }
 

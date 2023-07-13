@@ -10,9 +10,26 @@
 
 namespace DW{
     class Logger;
+    class LogEvent;
+    class LogAppender;
+    class LogFormatter;
+    class StdLogAppender;
+    class FileLogAppender;
+
+    using LoggerPtr = std::shared_ptr<Logger>;
+    using EventPtr = std::shared_ptr<LogEvent>;
+    using AppenderPtr = std::shared_ptr<LogAppender>;
+    using FormatterPtr = std::shared_ptr<LogFormatter>;
+    using StdAppenderPtr = std::shared_ptr<StdLogAppender>;
+    using FileAppenderPtr = std::shared_ptr<FileLogAppender>;
+
     class LogEvent{
     public:
-        typedef std::shared_ptr<LogEvent> ptr;
+        using ptr = std::shared_ptr<LogEvent> ;
+
+        LogEvent();
+        LogEvent(const std::string& file, const std::string& content, const std::string& threadname,
+                uint32_t line, uint32_t threadID, uint32_t fiberID, uint32_t time, uint32_t elapse);
 
         std::string getFile() { return m_file; };
         std::string getContent() { return m_content; };
@@ -22,6 +39,15 @@ namespace DW{
         uint32_t getFiberID() { return m_fiberID; };
         uint64_t getTime() { return m_time; };
         uint64_t getElapse() { return m_elapse; };
+
+        void setFile(const std::string& file) { m_file = file; };
+        void setContent(const std::string& content) { m_content = content; };
+        void setThreadName(const std::string& threadname) { m_threadname = threadname; };
+        void setLine(const uint32_t line) { m_line = line; };
+        void setThreadID(const uint32_t threadID) { m_threadID = threadID; };
+        void setFiberID(const uint32_t fiberID) { m_fiberID = fiberID; };
+        void setTime(const uint64_t time) { m_time = time; };
+        void setElpase(const uint64_t elpase) { m_elapse = elpase; };
 
     private:
         std::string m_file;         //文件名
@@ -49,11 +75,11 @@ namespace DW{
 
     class LogFormatter{
     public:
-        typedef std::shared_ptr<LogFormatter> ptr;
+        using ptr = std::shared_ptr<LogFormatter>;
 
         LogFormatter(const std::string& pattern);
 
-        std::string formatter(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event);
+        std::string formatter(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event);
 
         void init();
 
@@ -66,7 +92,7 @@ namespace DW{
             
             virtual ~FormatterItem() {};
 
-            virtual void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
+            virtual void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
         };
 
     private:
@@ -78,13 +104,20 @@ namespace DW{
 
     class LogAppender{
     public:
-        typedef std::shared_ptr<LogAppender> ptr;
+        using ptr = std::shared_ptr<LogAppender>;
+
+        LogAppender():m_level(LogLevel::DEBUG), m_formatter(std::make_shared<LogFormatter>()) {
+            //std::cout << "LogAppender creater" << std::endl;
+        };
 
         virtual ~LogAppender() {};
-        virtual void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
+        virtual void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 
         void setFormatter(LogFormatter::ptr formatter){ m_formatter = formatter; };
         LogFormatter::ptr getFormatter() { return m_formatter; };
+
+        void setLevel(LogLevel::Level level){ m_level = level; };
+        LogLevel::Level getLevel(){ return m_level; };
 
     protected:
         LogLevel::Level m_level;
@@ -93,7 +126,9 @@ namespace DW{
 
     class Logger: public std::enable_shared_from_this<Logger>{
     public: 
-        typedef std::shared_ptr<Logger> ptr;
+        using ptr =  std::shared_ptr<Logger>;
+
+        Logger(const std::string& name);
 
         void debug(LogEvent::ptr event);
         void info(LogEvent::ptr event);
@@ -121,16 +156,22 @@ namespace DW{
 
     class StdLogAppender: public LogAppender{
     public: 
-        typedef std::shared_ptr<StdLogAppender> ptr;
+        using ptr = std::shared_ptr<StdLogAppender>;
+
+        StdLogAppender(): LogAppender(){};
         
-        void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
+        void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override;
     };
 
     class FileLogAppender: public LogAppender{
     public: 
-        typedef std::shared_ptr<FileLogAppender> ptr;
+        using ptr = std::shared_ptr<FileLogAppender>;
         
-        void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
+        FileLogAppender(const std::string& filename): LogAppender(), m_filename(filename){
+            reopen();
+        }
+
+        void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override;
 
         bool reopen();
 
