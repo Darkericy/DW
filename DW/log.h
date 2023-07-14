@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <memory>
 #include <unordered_set>
@@ -167,8 +169,8 @@ namespace DW{
     public: 
         using ptr = std::shared_ptr<FileLogAppender>;
         
-        FileLogAppender(const std::string& filename): LogAppender(), m_filename(filename){
-            reopen();
+        FileLogAppender(const std::string& filename): LogAppender(), m_filename(filename), m_filestream(filename){
+            
         }
 
         void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override;

@@ -1,8 +1,8 @@
 #include "log.h"
 
 namespace DW{
-    LogEvent::LogEvent(): m_file("default"), m_content("default"), m_threadname("default"),
-                        m_line(-1), m_threadID(-1), m_fiberID(-1), m_time(-1), m_elapse(-1){
+    LogEvent::LogEvent(): m_file("filename"), m_content("content"), m_threadname("threadname"),
+                        m_line(0), m_threadID(0), m_fiberID(0), m_time(1), m_elapse(0){
 
     };
     LogEvent::LogEvent(const std::string& file, const std::string& content, const std::string& threadname,
@@ -188,7 +188,7 @@ namespace DW{
     void StdLogAppender::log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
             //std::cout << "StdLogAppender::log" << std::endl;
-            m_formatter->formatter(logger, level, event);
+            std::cout << m_formatter->formatter(logger, level, event);
         }
     }
 
