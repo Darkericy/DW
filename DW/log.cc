@@ -225,7 +225,12 @@ namespace DW{
         return "UNKNOW";
     }
 
-    LogFormatter::LogFormatter(const std::string& pattern = "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"): 
+    LogFormatter::LogFormatter(): m_pattern("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"),
+                                m_items(){
+                                    init();
+                                }
+
+    LogFormatter::LogFormatter(const std::string& pattern): 
     m_pattern(pattern), m_items(){
         //std::cout << m_pattern << std::endl;
         init();
@@ -355,5 +360,19 @@ namespace DW{
         //std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
     }
     //std::cout << m_items.size() << std::endl;
+    }
+
+    LoggerManager::LoggerManager(): m_root(std::make_shared<Logger>("root")){
+        m_loggers["root"] = m_root;
+    }
+
+    void LoggerManager::insertLogger(Logger::ptr logger){
+        m_loggers.insert({logger->getName(), logger});
+    }
+    Logger::ptr LoggerManager::getLogger(const std::string& name){
+        return ((m_loggers.find(name) != m_loggers.end()) ? m_loggers[name] : m_root);
+    }
+    Logger::ptr LoggerManager::getRoot(){
+        return m_root;
     }
 }

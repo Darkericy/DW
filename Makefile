@@ -169,6 +169,30 @@ DW/log.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/log.cc.s
 .PHONY : DW/log.cc.s
 
+DW/util.o: DW/util.cc.o
+.PHONY : DW/util.o
+
+# target to build an object file
+DW/util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.o
+.PHONY : DW/util.cc.o
+
+DW/util.i: DW/util.cc.i
+.PHONY : DW/util.i
+
+# target to preprocess a source file
+DW/util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.i
+.PHONY : DW/util.cc.i
+
+DW/util.s: DW/util.cc.s
+.PHONY : DW/util.s
+
+# target to generate assembly for a file
+DW/util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.s
+.PHONY : DW/util.cc.s
+
 tests/testlog.o: tests/testlog.cc.o
 .PHONY : tests/testlog.o
 
@@ -206,6 +230,9 @@ help:
 	@echo "... DW/log.o"
 	@echo "... DW/log.i"
 	@echo "... DW/log.s"
+	@echo "... DW/util.o"
+	@echo "... DW/util.i"
+	@echo "... DW/util.s"
 	@echo "... tests/testlog.o"
 	@echo "... tests/testlog.i"
 	@echo "... tests/testlog.s"

@@ -3,12 +3,17 @@
 #include <string>
 #include <memory>
 #include <unordered_set>
+#include <unordered_map>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <iostream>
 #include <map>
 #include <functional>
+#include <stdarg.h>
+
+#include "util.h"
+#include "singleton.h"
 
 namespace DW{
     class Logger;
@@ -17,6 +22,7 @@ namespace DW{
     class LogFormatter;
     class StdLogAppender;
     class FileLogAppender;
+    class LoggerManager;
 
     using LoggerPtr = std::shared_ptr<Logger>;
     using EventPtr = std::shared_ptr<LogEvent>;
@@ -25,6 +31,8 @@ namespace DW{
     using StdAppenderPtr = std::shared_ptr<StdLogAppender>;
     using FileAppenderPtr = std::shared_ptr<FileLogAppender>;
 
+    using LoggerMgr = SingletonPtr<LoggerManager>;
+
     class LogEvent{
     public:
         using ptr = std::shared_ptr<LogEvent> ;
@@ -32,6 +40,7 @@ namespace DW{
         LogEvent();
         LogEvent(const std::string& file, const std::string& content, const std::string& threadname,
                 uint32_t line, uint32_t threadID, uint32_t fiberID, uint32_t time, uint32_t elapse);
+        ~LogEvent() = default;
 
         std::string getFile() { return m_file; };
         std::string getContent() { return m_content; };
@@ -50,6 +59,18 @@ namespace DW{
         void setFiberID(const uint32_t fiberID) { m_fiberID = fiberID; };
         void setTime(const uint64_t time) { m_time = time; };
         void setElpase(const uint64_t elpase) { m_elapse = elpase; };
+
+        void contentFormat(const char* format, ...){
+            char* buf = nullptr;
+            va_list vaList;
+            va_start(vaList, format);
+            int len = vasprintf(&buf, format, vaList);
+            if(len != -1){
+                m_content = buf;
+                free(buf);
+            }
+            va_end(vaList);
+        }
 
     private:
         std::string m_file;         //文件名
@@ -79,6 +100,7 @@ namespace DW{
     public:
         using ptr = std::shared_ptr<LogFormatter>;
 
+        LogFormatter();
         LogFormatter(const std::string& pattern);
 
         std::string formatter(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event);
@@ -181,4 +203,97 @@ namespace DW{
         std::string m_filename;
         std::ofstream m_filestream;
     };
+
+    class LoggerManager{
+    public:
+    
+        LoggerManager();
+
+        void insertLogger(Logger::ptr logger);
+        Logger::ptr getLogger(const std::string& name);
+        Logger::ptr getRoot();
+
+    private:
+        Logger::ptr m_root;
+        std::unordered_map<std::string, Logger::ptr> m_loggers;
+    };
+
+    //成功，在不用宏的前提下成果实现了视频中的功能。
+    inline void DW_LOG_LEVEL(Logger::ptr logger, std::string file, uint32_t line, 
+                            std::string content, LogLevel::Level level){
+        if(level >= logger->getLevel()){
+            LogEvent::ptr event = std::make_shared<LogEvent>();
+            event->setThreadID(GetThreadId());
+            event->setFiberID(GetFiberId());
+            event->setFile(file);
+            event->setLine(line);
+            event->setContent(content);
+
+            logger->log(level, event);
+        }
+    }
+
+    inline void DW_LOG_DEBUG(Logger::ptr logger, std::string file, uint32_t line, std::string content){
+        DW_LOG_LEVEL(logger, file, line, content, LogLevel::DEBUG);
+    }
+    inline void DW_LOG_INFO(Logger::ptr logger, std::string file, uint32_t line, std::string content){
+        DW_LOG_LEVEL(logger, file, line, content, LogLevel::INFO);
+    }
+    inline void DW_LOG_WARN(Logger::ptr logger, std::string file, uint32_t line, std::string content){
+        DW_LOG_LEVEL(logger, file, line, content, LogLevel::WARN);
+    }
+    inline void DW_LOG_ERROR(Logger::ptr logger, std::string file, uint32_t line, std::string content){
+        DW_LOG_LEVEL(logger, file, line, content, LogLevel::ERROR);
+    }
+    inline void DW_LOG_FATAL(Logger::ptr logger, std::string file, uint32_t line, std::string content){
+        DW_LOG_LEVEL(logger, file, line, content, LogLevel::FATAL);
+    }
+
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_LEVEL(Logger::ptr logger, std::string file, uint32_t line, LogLevel::Level level, 
+                                    const char* format, Args&&... args){
+        if(level >= logger->getLevel()){
+            LogEvent::ptr event = std::make_shared<LogEvent>();
+            event->setThreadID(GetThreadId());
+            event->setFiberID(GetFiberId());
+            event->setFile(file);
+            event->setLine(line);
+            event->contentFormat(format, std::forward<Args>(args)...);
+
+            logger->log(level, event);
+        }
+    }
+
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_DEBUG(Logger::ptr logger, std::string file, uint32_t line, 
+                                    const char* format, Args&&... args){
+        DW_LOG_FORMAT_LEVEL(logger, file, line, LogLevel::DEBUG, format, std::forward<Args>(args)...);
+    }
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_INFO(Logger::ptr logger, std::string file, uint32_t line, 
+                                    const char* format, Args&&... args){
+        DW_LOG_FORMAT_LEVEL(logger, file, line, LogLevel::INFO, format, std::forward<Args>(args)...);
+    }
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_WARN(Logger::ptr logger, std::string file, uint32_t line, 
+                                    const char* format, Args&&... args){
+        DW_LOG_FORMAT_LEVEL(logger, file, line, LogLevel::INFO, format, std::forward<Args>(args)...);
+    }
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_ERROR(Logger::ptr logger, std::string file, uint32_t line, 
+                                    const char* format, Args&&... args){
+        DW_LOG_FORMAT_LEVEL(logger, file, line, LogLevel::INFO, format, std::forward<Args>(args)...);
+    }
+    template <typename... Args>
+    inline void DW_LOG_FORMAT_FATAL(Logger::ptr logger, std::string file, uint32_t line, 
+                                    const char* format, Args&&... args){
+        DW_LOG_FORMAT_LEVEL(logger, file, line, LogLevel::INFO, format, std::forward<Args>(args)...);
+    }
+
+    inline LoggerPtr DW_LOG_ROOT(){
+        return LoggerMgr::GetInstance()->getRoot();
+    }
+    inline LoggerPtr DW_LOG_NAME(const std::string& name){
+        return LoggerMgr::GetInstance()->getLogger(name);
+    }
 };

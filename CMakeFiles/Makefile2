@@ -86,12 +86,12 @@ clean: CMakeFiles/testlog.dir/clean
 CMakeFiles/DW.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=1,2 "Built target DW"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=1,2,3 "Built target DW"
 .PHONY : CMakeFiles/DW.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DW.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DW.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 0
 .PHONY : CMakeFiles/DW.dir/rule
@@ -112,12 +112,12 @@ CMakeFiles/DW.dir/clean:
 CMakeFiles/testlog.dir/all: CMakeFiles/DW.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=3,4 "Built target testlog"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=4,5 "Built target testlog"
 .PHONY : CMakeFiles/testlog.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/testlog.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/testlog.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 0
 .PHONY : CMakeFiles/testlog.dir/rule

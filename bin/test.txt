@@ -1,0 +1,2 @@
+1970-01-01 08:00:01	16003	threadname	0	[DEBUG]	[root]	/home/dakericy/DK_pratice/DW/tests/testlog.cc:18	测试宏定义
+1970-01-01 08:00:01	16003	threadname	0	[DEBUG]	[root]	/home/dakericy/DK_pratice/DW/tests/testlog.cc:19	测试宏定义6

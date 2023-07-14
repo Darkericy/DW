@@ -1,14 +1,12 @@
 #include <iostream>
-#include "../DW/log.cc"
+#include "../DW/log.h"
 using std::cout;
 using std::endl;
 
 int main(){
-    std::fstream os("text.txt");
-
     cout << "开始日志模块测试" << endl;
 
-    DW::LoggerPtr logger = std::make_shared<DW::Logger>("test");
+    DW::LoggerPtr logger = DW::DW_LOG_ROOT(); 
 
     cout << "构建根节点logger结束" << endl;
 
@@ -17,15 +15,6 @@ int main(){
     logger->insertAppender(file);
     logger->insertAppender(stdt);
 
-    file->setLevel(DW::LogLevel::ERROR);
-
-    cout << "插入需要的输出器结束" << endl;
-
-    DW::EventPtr event = std::make_shared<DW::LogEvent>();
-
-    cout << "创建基本事件" << endl;
-
-    logger->log(DW::LogLevel::DEBUG, event);
-
-    cout << "日志测试完毕" << endl;
+    DW::DW_LOG_DEBUG(logger, __FILE__, __LINE__, "测试宏定义");
+    DW::DW_LOG_FORMAT_DEBUG(logger, __FILE__, __LINE__, "测试宏定义%d", 6);
 }

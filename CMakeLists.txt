@@ -8,6 +8,8 @@ set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++14 -Wall -
 
 set(
     LIB_SRC
+    DW/singleton.h
+    DW/util.cc
     DW/log.cc
 )
 
