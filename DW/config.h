@@ -5,7 +5,9 @@
 #include <unordered_map>
 #include <map>
 #include <sstream>
+#include <list>
 #include <boost/lexical_cast.hpp>
+#include <yaml-cpp/yaml.h>
 
 #include "log.h"
 
@@ -122,7 +124,12 @@ namespace DW{
             return std::dynamic_pointer_cast<ConfigVar<T>>(ret->second);
         }
 
+        static void LoadFromYaml(const YAML::Node& root);
+
+
     private:
         static ConfigVarMap s_datas;
+
+        static ConfigVarBase::ptr LookupBase(const std::string& name);
     };
 }

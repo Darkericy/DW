@@ -296,4 +296,12 @@ namespace DW{
     inline LoggerPtr DW_LOG_NAME(const std::string& name){
         return LoggerMgr::GetInstance()->getLogger(name);
     }
+
+    template<typename ... Args>
+    inline std::string TOSTRING(const Args ... args){
+        std::ostringstream os;
+        ((os << args), ...);
+        return os.str();
+    }
+
 };
