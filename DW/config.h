@@ -6,6 +6,7 @@
 #include <map>
 #include <sstream>
 #include <list>
+#include <vector>
 #include <boost/lexical_cast.hpp>
 #include <yaml-cpp/yaml.h>
 
@@ -37,7 +38,46 @@ namespace DW{
         std::string m_description;
     };
 
+    template<class F, class T>
+    class LexicalCast{
+    public: 
+        T operator ()(const F& v){
+            return boost::lexical_cast<T>(v);
+        }
+    };
+
     template<class T>
+    class LexicalCast<std::string, std::vector<T>>{
+    public:
+        typename std::vector<T> operator ()(const std::string& v){
+            YAML::Node node = YAML::Load(v);
+            typename std::vector<T> vec;
+            std::stringstream ss;
+            for(size_t i = 0; i < node.size(); ++i) {
+                ss.str("");
+                ss << node[i];
+                vec.push_back(LexicalCast<std::string, T>()(ss.str()));
+            }
+            return vec;
+        }
+    };
+
+    template<class T>
+    class LexicalCast<std::vector<T>, std::string>{
+    public:
+        std::string operator ()(const std::vector<T>& v){
+             YAML::Node node(YAML::NodeType::Sequence);
+            for(auto& i : v) {
+                node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+    };
+
+    template<class T, class FromStr = LexicalCast<std::string, T>
+                , class ToStr = LexicalCast<T, std::string> >
     class ConfigVar: public ConfigVarBase{
     public:
 
@@ -52,7 +92,8 @@ namespace DW{
 
         std::string toString() override {
             try {
-                return boost::lexical_cast<std::string>(m_val);
+                //return boost::lexical_cast<std::string>(m_val);
+                return ToStr()(m_val);      //这里是创建了一个匿名对象，然后调用其方法
             } catch (std::exception& e) {
                 std::ostringstream os;
                 os << "ConfigVar::toString exception "
@@ -64,7 +105,8 @@ namespace DW{
 
         bool fromString(const std::string& val) override {
             try {
-                m_val = boost::lexical_cast<T>(val);
+                //m_val = boost::lexical_cast<T>(val);
+                setValue(FromStr()(val));
             } catch (std::exception& e) {
                 std::ostringstream os;
                 os << "ConfigVar::fromString exception "
@@ -74,7 +116,7 @@ namespace DW{
             return false;
         }
 
-        const T getValue() {
+        const T& getValue() {
             return m_val;
         }
 

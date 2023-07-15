@@ -2,7 +2,7 @@
 
 namespace DW{
     LogEvent::LogEvent(): m_file("filename"), m_content("content"), m_threadname("threadname"),
-                        m_line(0), m_threadID(0), m_fiberID(0), m_time(1), m_elapse(0){
+                        m_line(0), m_threadID(0), m_fiberID(0), m_time(time(0)), m_elapse(0){
 
     };
     LogEvent::LogEvent(const std::string& file, const std::string& content, const std::string& threadname,

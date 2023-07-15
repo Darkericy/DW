@@ -7,6 +7,9 @@ DW::ConfigVar<int>::ptr g_int_value_config =
 
 DW::ConfigVar<float>::ptr g_float_value_config =
     DW::Config::Lookup("system.value", (float)10.2f, "system value");
+    
+DW::ConfigVar<std::vector<int>>::ptr g_vector_value_config =
+    DW::Config::Lookup("system.vector", std::vector<int>(2, 3), "system vector");
 
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
@@ -42,11 +45,19 @@ void test_load(){
     DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("before ", g_int_value_config->getValue()));
     DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("before ", g_float_value_config->toString()));
 
+    for(const auto& i: g_vector_value_config->getValue()){
+        DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("before ", i));
+    }
+
     YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/log.yml");
     DW::Config::LoadFromYaml(root);
 
     DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("after ", g_int_value_config->getValue()));
     DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("after ", g_float_value_config->toString()));
+
+    for(const auto& i: g_vector_value_config->getValue()){
+        DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("after ", i));
+    }
 }
 
 int main(){
