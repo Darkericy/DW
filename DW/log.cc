@@ -363,6 +363,7 @@ namespace DW{
     }
 
     LoggerManager::LoggerManager(): m_root(std::make_shared<Logger>("root")){
+        m_root->insertAppender(std::make_shared<StdLogAppender>());
         m_loggers["root"] = m_root;
     }
 

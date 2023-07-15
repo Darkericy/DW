@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/dakericy/DK_pratice/DW/tests/testlog.cc" "CMakeFiles/test.dir/tests/testlog.cc.o" "gcc" "CMakeFiles/test.dir/tests/testlog.cc.o.d"
+  "/home/dakericy/DK_pratice/DW/tests/test_config.cc" "CMakeFiles/test_config.dir/tests/test_config.cc.o" "gcc" "CMakeFiles/test_config.dir/tests/test_config.cc.o.d"
   )
 
 # Targets to which this target links.

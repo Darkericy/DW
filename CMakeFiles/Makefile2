@@ -68,6 +68,7 @@ CMAKE_BINARY_DIR = /home/dakericy/DK_pratice/DW
 # The main recursive "all" target.
 all: CMakeFiles/DW.dir/all
 all: CMakeFiles/testlog.dir/all
+all: CMakeFiles/test_config.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -77,6 +78,7 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/DW.dir/clean
 clean: CMakeFiles/testlog.dir/clean
+clean: CMakeFiles/test_config.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -86,12 +88,12 @@ clean: CMakeFiles/testlog.dir/clean
 CMakeFiles/DW.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=1,2,3 "Built target DW"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=1,2,3,4 "Built target DW"
 .PHONY : CMakeFiles/DW.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DW.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DW.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 0
 .PHONY : CMakeFiles/DW.dir/rule
@@ -112,12 +114,12 @@ CMakeFiles/DW.dir/clean:
 CMakeFiles/testlog.dir/all: CMakeFiles/DW.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=4,5 "Built target testlog"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=7,8 "Built target testlog"
 .PHONY : CMakeFiles/testlog.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/testlog.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/testlog.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 0
 .PHONY : CMakeFiles/testlog.dir/rule
@@ -130,6 +132,32 @@ testlog: CMakeFiles/testlog.dir/rule
 CMakeFiles/testlog.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/clean
 .PHONY : CMakeFiles/testlog.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_config.dir
+
+# All Build rule for target.
+CMakeFiles/test_config.dir/all: CMakeFiles/DW.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dakericy/DK_pratice/DW/CMakeFiles --progress-num=5,6 "Built target test_config"
+.PHONY : CMakeFiles/test_config.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_config.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_config.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dakericy/DK_pratice/DW/CMakeFiles 0
+.PHONY : CMakeFiles/test_config.dir/rule
+
+# Convenience name for target.
+test_config: CMakeFiles/test_config.dir/rule
+.PHONY : test_config
+
+# clean rule for target.
+CMakeFiles/test_config.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/clean
+.PHONY : CMakeFiles/test_config.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

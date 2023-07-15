@@ -6,5 +6,5 @@ CXX_DEFINES = -DDW_EXPORTS
 
 CXX_INCLUDES = 
 
-CXX_FLAGS =  -rdynamic -O3 -fPIC -ggdb -std=c++14 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fPIC
+CXX_FLAGS =  -rdynamic -O3 -fPIC -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fPIC
 

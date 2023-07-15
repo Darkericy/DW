@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/dakericy/DK_pratice/DW/DW/config.cc" "CMakeFiles/DW.dir/DW/config.cc.o" "gcc" "CMakeFiles/DW.dir/DW/config.cc.o.d"
   "/home/dakericy/DK_pratice/DW/DW/log.cc" "CMakeFiles/DW.dir/DW/log.cc.o" "gcc" "CMakeFiles/DW.dir/DW/log.cc.o.d"
   "/home/dakericy/DK_pratice/DW/DW/util.cc" "CMakeFiles/DW.dir/DW/util.cc.o" "gcc" "CMakeFiles/DW.dir/DW/util.cc.o.d"
   )

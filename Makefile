@@ -145,6 +145,43 @@ testlog/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testlog.dir/build.make CMakeFiles/testlog.dir/build
 .PHONY : testlog/fast
 
+#=============================================================================
+# Target rules for targets named test_config
+
+# Build rule for target.
+test_config: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_config
+.PHONY : test_config
+
+# fast build rule for target.
+test_config/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
+.PHONY : test_config/fast
+
+DW/config.o: DW/config.cc.o
+.PHONY : DW/config.o
+
+# target to build an object file
+DW/config.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.o
+.PHONY : DW/config.cc.o
+
+DW/config.i: DW/config.cc.i
+.PHONY : DW/config.i
+
+# target to preprocess a source file
+DW/config.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.i
+.PHONY : DW/config.cc.i
+
+DW/config.s: DW/config.cc.s
+.PHONY : DW/config.s
+
+# target to generate assembly for a file
+DW/config.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.s
+.PHONY : DW/config.cc.s
+
 DW/log.o: DW/log.cc.o
 .PHONY : DW/log.o
 
@@ -193,6 +230,30 @@ DW/util.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.s
 .PHONY : DW/util.cc.s
 
+tests/test_config.o: tests/test_config.cc.o
+.PHONY : tests/test_config.o
+
+# target to build an object file
+tests/test_config.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.o
+.PHONY : tests/test_config.cc.o
+
+tests/test_config.i: tests/test_config.cc.i
+.PHONY : tests/test_config.i
+
+# target to preprocess a source file
+tests/test_config.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.i
+.PHONY : tests/test_config.cc.i
+
+tests/test_config.s: tests/test_config.cc.s
+.PHONY : tests/test_config.s
+
+# target to generate assembly for a file
+tests/test_config.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
+.PHONY : tests/test_config.cc.s
+
 tests/testlog.o: tests/testlog.cc.o
 .PHONY : tests/testlog.o
 
@@ -226,13 +287,20 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DW"
+	@echo "... test_config"
 	@echo "... testlog"
+	@echo "... DW/config.o"
+	@echo "... DW/config.i"
+	@echo "... DW/config.s"
 	@echo "... DW/log.o"
 	@echo "... DW/log.i"
 	@echo "... DW/log.s"
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
+	@echo "... tests/test_config.o"
+	@echo "... tests/test_config.i"
+	@echo "... tests/test_config.s"
 	@echo "... tests/testlog.o"
 	@echo "... tests/testlog.i"
 	@echo "... tests/testlog.s"

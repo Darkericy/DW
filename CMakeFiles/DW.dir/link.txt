@@ -1,1 +1,1 @@
-/usr/bin/c++ -fPIC  -rdynamic -O3 -fPIC -ggdb -std=c++14 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -shared -Wl,-soname,libDW.so -o lib/libDW.so CMakeFiles/DW.dir/DW/util.cc.o CMakeFiles/DW.dir/DW/log.cc.o 
+/usr/bin/c++ -fPIC  -rdynamic -O3 -fPIC -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -shared -Wl,-soname,libDW.so -o lib/libDW.so CMakeFiles/DW.dir/DW/config.cc.o CMakeFiles/DW.dir/DW/util.cc.o CMakeFiles/DW.dir/DW/log.cc.o 

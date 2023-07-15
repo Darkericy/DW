@@ -1,0 +1,1 @@
+/usr/bin/c++  -rdynamic -O3 -fPIC -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -rdynamic CMakeFiles/test_config.dir/tests/test_config.cc.o -o bin/test_config  -Wl,-rpath,/home/dakericy/DK_pratice/DW/lib lib/libDW.so 
