@@ -86,14 +86,17 @@ namespace DW{
     class LogLevel{
     public: 
         enum Level{
+            UNKNOW = 0,
             DEBUG = 1,
             INFO = 2,
             WARN = 3,
             ERROR = 4,
-            FATAL = 5
+            FATAL = 5,
+            ENABLE = 6
         };
 
         static std::string ToString(Level level);
+        static LogLevel::Level FromString(const std::string& str);
     };
 
     class LogFormatter{
@@ -107,8 +110,16 @@ namespace DW{
 
         void init();
 
-        void setPattern(const std::string& pattern){ m_pattern = pattern; };
+        void setPattern(const std::string& pattern){ 
+            m_pattern = pattern;    
+            clearItems();
+            init();
+        };
         std::string getPattern(){ return m_pattern; };
+
+        bool isError(){
+            return m_error;
+        }
 
         class FormatterItem{
         public: 
@@ -124,6 +135,10 @@ namespace DW{
         std::vector<FormatterItem::ptr> m_items;
 
         bool m_error = false;   //检查格式是否有错
+
+        void clearItems(){
+            m_items.clear();
+        }
     };
 
     class LogAppender{
@@ -142,6 +157,8 @@ namespace DW{
 
         void setLevel(LogLevel::Level level){ m_level = level; };
         LogLevel::Level getLevel(){ return m_level; };
+
+        virtual std::string toYamlString() = 0;
 
     protected:
         LogLevel::Level m_level;
@@ -169,8 +186,20 @@ namespace DW{
         //插入和删除输出地
         void insertAppender(LogAppender::ptr appender);
         void eraseAppender(LogAppender::ptr appender);
+        void clearAppenders(){
+            m_appender.clear();
+        }
+        std::unordered_set<LogAppender::ptr> getAppenderList(){
+            return m_appender;
+        }
+        void setAppenderList(const std::unordered_set<LogAppender::ptr>& list){
+            m_appender = list;
+        }
+        void setFormatter(const std::string& pattern);
 
         std::string getName() { return m_logname; };
+
+        std::string toYamlString();
 
     private:    
         std::string m_logname;                          
@@ -185,6 +214,8 @@ namespace DW{
         StdLogAppender(): LogAppender(){};
         
         void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override;
+
+        std::string toYamlString() override;
     };
 
     class FileLogAppender: public LogAppender{
@@ -196,6 +227,8 @@ namespace DW{
         }
 
         void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) override;
+
+        std::string toYamlString() override;
 
         bool reopen();
 
@@ -212,6 +245,8 @@ namespace DW{
         void insertLogger(Logger::ptr logger);
         Logger::ptr getLogger(const std::string& name);
         Logger::ptr getRoot();
+
+        std::string toYamlString();
 
     private:
         Logger::ptr m_root;

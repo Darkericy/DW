@@ -5,8 +5,8 @@
 DW::ConfigVar<int>::ptr g_int_value_config =
     DW::Config::Lookup("system.port", (int)8080, "system port");
 
-DW::ConfigVar<float>::ptr g_int_valuex_config =
-    DW::Config::Lookup("system.port", (float)8080, "system port");
+// DW::ConfigVar<float>::ptr g_int_valuex_config =
+//     DW::Config::Lookup("system.port", (float)8080, "system port");
 
 DW::ConfigVar<float>::ptr g_float_value_config =
     DW::Config::Lookup("system.value", (float)10.2f, "system value");
@@ -54,7 +54,7 @@ void print_yaml(const YAML::Node& node, int level) {
 }
 
 void test_yaml(){
-    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/test.yml");
 
     //DW::DW_LOG_DEBUG(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING(root));
     print_yaml(root, 0);
@@ -92,7 +92,7 @@ void test_load(){
     XX_M(g_str_int_umap_value_config, str_int_umap, before);
     std::cout << std::endl;
 
-    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/test.yml");
     DW::Config::LoadFromYaml(root);
 
     DW::DW_LOG_INFO(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("after: ", g_int_value_config->getValue()));
@@ -106,8 +106,43 @@ void test_load(){
     XX_M(g_str_int_umap_value_config, str_int_umap, after);
 }
 
+void test_cb(){
+    g_int_vec_value_config->addListener([](const std::vector<int>& old, const std::vector<int>& ne){
+        for(const auto& o: old){
+            std::cout << o << " " ;
+        }
+        std::cout << std::endl;
+
+        for(const auto& n: ne){
+            std::cout << n << " ";
+        }
+        std::cout << std::endl;
+    });
+
+    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/test.yml");
+    DW::Config::LoadFromYaml(root);
+}
+
+void test_log(){
+    static DW::Logger::ptr system_log = DW::DW_LOG_NAME("system");
+    DW::DW_LOG_INFO(system_log, __FILE__, __LINE__, DW::TOSTRING("hello system"));
+    std::cout << DW::LoggerMgr::GetInstance()->toYamlString() << std::endl;
+    YAML::Node root = YAML::LoadFile("/home/dakericy/DK_pratice/DW/bin/config/test.yml");
+    DW::Config::LoadFromYaml(root);
+    std::cout << "=============" << std::endl;
+    std::cout << DW::LoggerMgr::GetInstance()->toYamlString() << std::endl;
+    std::cout << "=============" << std::endl;
+    std::cout << root << std::endl;
+    DW::DW_LOG_INFO(system_log, __FILE__, __LINE__, DW::TOSTRING("hello system"));
+    std::cout << "pause" << std::endl;
+    system_log->setFormatter("%d - %m%n");
+    DW::DW_LOG_INFO(system_log, __FILE__, __LINE__, DW::TOSTRING("hello system"));
+}
+
 int main(){
     //test_yaml();
+    //test_load();
+    //test_cb();
 
-    test_load();
+    test_log();
 }

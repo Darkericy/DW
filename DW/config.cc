@@ -1,16 +1,15 @@
 #include "config.h"
 
 namespace DW{
-    Config::ConfigVarMap Config::s_datas;
-
     ConfigVarBase::ptr Config::LookupBase(const std::string& name) {
-        auto it = s_datas.find(name);
-        return it == s_datas.end() ? nullptr : it->second;
+        auto it = GetDatas().find(name);
+        return it == GetDatas().end() ? nullptr : it->second;
     }
 
     static void ListAllMember(const std::string& prefix,
                           const YAML::Node& node,
-                          std::list<std::pair<std::string, const YAML::Node> >& output) {
+                          std::list<std::pair<std::string, const YAML::Node> >& output) 
+    {
         if(prefix.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678") != std::string::npos) {
             DW_LOG_ERROR(DW_LOG_ROOT(), __FILE__, __LINE__, TOSTRING("Config invalid name: ", prefix, " : ", node));
             return;

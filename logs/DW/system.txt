@@ -1,0 +1,2 @@
+2023-07-16 17:48:36	15128	threadname	0	[INFO]	[system]	/home/dakericy/DK_pratice/DW/tests/test_config.cc:136	hello system
+2023-07-16 17:48:36 - hello system

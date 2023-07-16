@@ -11,6 +11,7 @@
 #include <unordered_set>
 #include <set>
 #include <map>
+#include <functional>
 #include <boost/lexical_cast.hpp>
 #include <yaml-cpp/yaml.h>
 
@@ -239,7 +240,7 @@ namespace DW{
                 , class ToStr = LexicalCast<T, std::string> >
     class ConfigVar: public ConfigVarBase{
     public:
-
+        using on_change_cb = std::function<void (const T& old_value, const T& new_value)>;
         using ptr = std::shared_ptr<ConfigVar>;
 
         ConfigVar(const std::string& name, 
@@ -280,13 +281,40 @@ namespace DW{
         }
 
         void setValue(const T& v) {
+            if(v == m_val){
+                return;
+            }
+            for(const auto& [key, cb]: m_cbs){
+                cb(m_val, v);
+            }
             m_val = v;
         }
 
         std::string getTypeName() const override { return typeid(T).name();}
 
+        uint64_t addListener(on_change_cb cb) {
+            static uint64_t s_fun_id = 0;
+            ++s_fun_id;
+            m_cbs[s_fun_id] = cb;
+            return s_fun_id;
+        }
+
+        void delListener(uint64_t key) {
+            m_cbs.erase(key);
+        }
+
+        on_change_cb getListener(uint64_t key) {
+            auto it = m_cbs.find(key);
+            return it == m_cbs.end() ? nullptr : it->second;
+        }
+
+        void clearListener() {
+            m_cbs.clear();
+        }
+
     private:
         T m_val;
+        std::unordered_map<uint64_t, on_change_cb> m_cbs;
     };
 
     class Config{
@@ -297,8 +325,8 @@ namespace DW{
         static typename ConfigVar<T>::ptr Lookup(const std::string& name, const T& val,
                                                 const std::string& description = "")
         {
-            auto it = s_datas.find(name);
-            if(it != s_datas.end()) {
+            auto it = GetDatas().find(name);
+            if(it != GetDatas().end()) {
                 auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
                 if(tmp) {
                     DW_LOG_INFO(DW_LOG_ROOT(), __FILE__, __LINE__, TOSTRING("Lookup name=", name, " exists"));
@@ -320,14 +348,14 @@ namespace DW{
             }
 
             typename ConfigVar<T>::ptr v(new ConfigVar<T>(name, val, description));
-            s_datas.insert({name, v});
+            GetDatas().insert({name, v});
             return v;
         }
         
         template<class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string& name){
-            auto ret = s_datas.find(name);
-            if(ret == s_datas.end()){
+            auto ret = GetDatas().find(name);
+            if(ret == GetDatas().end()){
                 return nullptr;
             }
             return std::dynamic_pointer_cast<ConfigVar<T>>(ret->second);
@@ -337,8 +365,11 @@ namespace DW{
 
 
     private:
-        static ConfigVarMap s_datas;
-
         static ConfigVarBase::ptr LookupBase(const std::string& name);
+
+        static ConfigVarMap& GetDatas() {
+            static ConfigVarMap s_datas;
+            return s_datas;
+        }
     };
 }
