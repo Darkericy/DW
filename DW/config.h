@@ -36,6 +36,7 @@ namespace DW{
 
         virtual std::string toString() = 0;
         virtual bool fromString(const std::string& val) = 0;
+        virtual std::string getTypeName() const = 0;
 
     protected:
         std::string m_name;
@@ -140,9 +141,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(YAML String 转换成 std::unordered_set<T>)
-     */
     template<class T>
     class LexicalCast<std::string, std::unordered_set<T> > {
     public:
@@ -159,9 +157,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(std::unordered_set<T> 转换成 YAML String)
-     */
     template<class T>
     class LexicalCast<std::unordered_set<T>, std::string> {
     public:
@@ -176,9 +171,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(YAML String 转换成 std::map<std::string, T>)
-     */
     template<class T>
     class LexicalCast<std::string, std::map<std::string, T> > {
     public:
@@ -197,9 +189,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(std::map<std::string, T> 转换成 YAML String)
-     */
     template<class T>
     class LexicalCast<std::map<std::string, T>, std::string> {
     public:
@@ -214,9 +203,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(YAML String 转换成 std::unordered_map<std::string, T>)
-     */
     template<class T>
     class LexicalCast<std::string, std::unordered_map<std::string, T> > {
     public:
@@ -235,9 +221,6 @@ namespace DW{
         }
     };
 
-    /**
-     * @brief 类型转换模板类片特化(std::unordered_map<std::string, T> 转换成 YAML String)
-     */
     template<class T>
     class LexicalCast<std::unordered_map<std::string, T>, std::string> {
     public:
@@ -300,6 +283,8 @@ namespace DW{
             m_val = v;
         }
 
+        std::string getTypeName() const override { return typeid(T).name();}
+
     private:
         T m_val;
     };
@@ -312,12 +297,18 @@ namespace DW{
         static typename ConfigVar<T>::ptr Lookup(const std::string& name, const T& val,
                                                 const std::string& description = "")
         {
-            auto it = Lookup<T>(name);
-            if(it) {
-                std::ostringstream os;
-                os << "Lookup name=" << name << " exists";
-                DW_LOG_INFO(DW_LOG_ROOT(), __FILE__, __LINE__, os.str());
-                return it;
+            auto it = s_datas.find(name);
+            if(it != s_datas.end()) {
+                auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
+                if(tmp) {
+                    DW_LOG_INFO(DW_LOG_ROOT(), __FILE__, __LINE__, TOSTRING("Lookup name=", name, " exists"));
+                    return tmp;
+                } else {
+                    DW_LOG_INFO(DW_LOG_ROOT(), __FILE__, __LINE__, TOSTRING("Lookup name=", name, " exists but type not ",
+                            typeid(T).name(), " real_type=", it->second->getTypeName(),
+                            " ", it->second->toString()));
+                    return nullptr;
+                }
             }
 
             if(name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")

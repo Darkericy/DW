@@ -5,6 +5,9 @@
 DW::ConfigVar<int>::ptr g_int_value_config =
     DW::Config::Lookup("system.port", (int)8080, "system port");
 
+DW::ConfigVar<float>::ptr g_int_valuex_config =
+    DW::Config::Lookup("system.port", (float)8080, "system port");
+
 DW::ConfigVar<float>::ptr g_float_value_config =
     DW::Config::Lookup("system.value", (float)10.2f, "system value");
 
