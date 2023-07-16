@@ -15,4 +15,13 @@ logs:
 system:
     port: 2403
     value:  15
-    vector: [10, 30]
+    int_vec: [10, 30]
+    int_list: [11, 22]
+    int_set:  [5, 6]
+    int_uset: [50, 60]
+    str_int_map:
+      d:  2
+      k:  4
+    str_int_umap:
+      D:  0
+      K:  7
