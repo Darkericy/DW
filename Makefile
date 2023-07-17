@@ -219,6 +219,30 @@ DW/log.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/log.cc.s
 .PHONY : DW/log.cc.s
 
+DW/mutex.o: DW/mutex.cc.o
+.PHONY : DW/mutex.o
+
+# target to build an object file
+DW/mutex.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/mutex.cc.o
+.PHONY : DW/mutex.cc.o
+
+DW/mutex.i: DW/mutex.cc.i
+.PHONY : DW/mutex.i
+
+# target to preprocess a source file
+DW/mutex.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/mutex.cc.i
+.PHONY : DW/mutex.cc.i
+
+DW/mutex.s: DW/mutex.cc.s
+.PHONY : DW/mutex.s
+
+# target to generate assembly for a file
+DW/mutex.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/mutex.cc.s
+.PHONY : DW/mutex.cc.s
+
 DW/thread.o: DW/thread.cc.o
 .PHONY : DW/thread.o
 
@@ -357,6 +381,9 @@ help:
 	@echo "... DW/log.o"
 	@echo "... DW/log.i"
 	@echo "... DW/log.s"
+	@echo "... DW/mutex.o"
+	@echo "... DW/mutex.i"
+	@echo "... DW/mutex.s"
 	@echo "... DW/thread.o"
 	@echo "... DW/thread.i"
 	@echo "... DW/thread.s"

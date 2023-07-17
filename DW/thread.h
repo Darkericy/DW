@@ -5,26 +5,10 @@
 #include <memory>
 #include <pthread.h>
 #include <string>
-#include <semaphore.h>
+
+#include "mutex.h"
 
 namespace DW{
-    class Semaphore{
-    public:
-        Semaphore(const Semaphore&) = delete;
-        Semaphore(Semaphore&&) = delete;
-        Semaphore& operator==(const Semaphore&) = delete;
-
-        Semaphore()
-        Semaphore(uint32_t count);
-        ~Semaphore();
-
-        void wait();
-        void notify();
-
-    private:
-        sem_t m_semaphore;
-    }
-
     class Thread{
     public:
         using ptr = std::shared_ptr<Thread>;
@@ -39,7 +23,7 @@ namespace DW{
         pid_t getId() const { return m_id; };
         const std::string& getName() const { return m_name; };
         void join();
-        
+
         static Thread* GetThis();
         static const std::string& GetName();
         static void SetName(const std::string& name);
@@ -49,6 +33,8 @@ namespace DW{
         pthread_t m_thread = 0;
         std::function<void()> m_cb;
         std::string m_name;
+
+        Semaphore m_semaphore;
 
         static void* run(void *arg);
     };

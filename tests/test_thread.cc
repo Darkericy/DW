@@ -3,11 +3,19 @@
 
 DW::Logger::ptr g_logger = DW::DW_LOG_ROOT();
 
+long long count = 0;
+DW::RWMutex s_mutex;
+
 void fun1(){
     DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, DW::TOSTRING("name: ", DW::Thread::GetName(),
                                                         " this.name: ", DW::Thread::GetThis()->getName(),
                                                         " id: ", DW::GetThreadId(),
                                                         " this.id: ", DW::Thread::GetThis()->getId()));
+    
+    for(int i = 0; i < 100000; ++i) {
+        DW::RWMutex::WriteLock lock(s_mutex);
+        ++count;
+    }
 }
 
 void fun2(){
@@ -26,4 +34,5 @@ int main(){
         thrs[i]->join();
     }
     DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, "thread test end");
+    DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, DW::TOSTRING("count ", count));
 }
