@@ -158,6 +158,19 @@ test_config/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
 .PHONY : test_config/fast
 
+#=============================================================================
+# Target rules for targets named test_thread
+
+# Build rule for target.
+test_thread: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_thread
+.PHONY : test_thread
+
+# fast build rule for target.
+test_thread/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/build
+.PHONY : test_thread/fast
+
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
 
@@ -205,6 +218,30 @@ DW/log.s: DW/log.cc.s
 DW/log.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/log.cc.s
 .PHONY : DW/log.cc.s
+
+DW/thread.o: DW/thread.cc.o
+.PHONY : DW/thread.o
+
+# target to build an object file
+DW/thread.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/thread.cc.o
+.PHONY : DW/thread.cc.o
+
+DW/thread.i: DW/thread.cc.i
+.PHONY : DW/thread.i
+
+# target to preprocess a source file
+DW/thread.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/thread.cc.i
+.PHONY : DW/thread.cc.i
+
+DW/thread.s: DW/thread.cc.s
+.PHONY : DW/thread.s
+
+# target to generate assembly for a file
+DW/thread.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/thread.cc.s
+.PHONY : DW/thread.cc.s
 
 DW/util.o: DW/util.cc.o
 .PHONY : DW/util.o
@@ -254,6 +291,30 @@ tests/test_config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
 .PHONY : tests/test_config.cc.s
 
+tests/test_thread.o: tests/test_thread.cc.o
+.PHONY : tests/test_thread.o
+
+# target to build an object file
+tests/test_thread.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.o
+.PHONY : tests/test_thread.cc.o
+
+tests/test_thread.i: tests/test_thread.cc.i
+.PHONY : tests/test_thread.i
+
+# target to preprocess a source file
+tests/test_thread.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.i
+.PHONY : tests/test_thread.cc.i
+
+tests/test_thread.s: tests/test_thread.cc.s
+.PHONY : tests/test_thread.s
+
+# target to generate assembly for a file
+tests/test_thread.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.s
+.PHONY : tests/test_thread.cc.s
+
 tests/testlog.o: tests/testlog.cc.o
 .PHONY : tests/testlog.o
 
@@ -288,6 +349,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DW"
 	@echo "... test_config"
+	@echo "... test_thread"
 	@echo "... testlog"
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
@@ -295,12 +357,18 @@ help:
 	@echo "... DW/log.o"
 	@echo "... DW/log.i"
 	@echo "... DW/log.s"
+	@echo "... DW/thread.o"
+	@echo "... DW/thread.i"
+	@echo "... DW/thread.s"
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"
+	@echo "... tests/test_thread.o"
+	@echo "... tests/test_thread.i"
+	@echo "... tests/test_thread.s"
 	@echo "... tests/testlog.o"
 	@echo "... tests/testlog.i"
 	@echo "... tests/testlog.s"

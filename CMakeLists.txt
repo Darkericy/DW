@@ -12,9 +12,9 @@ set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++17 -Wall -
 set(
     LIB_SRC
     DW/config.cc
-    DW/singleton.h
     DW/util.cc
     DW/log.cc
+    DW/thread.cc
 )
 
 add_library(DW SHARED ${LIB_SRC})
@@ -31,6 +31,11 @@ add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config DW)
 force_redefine_file_macro_for_sources(test_config)
 target_link_libraries(test_config DW yaml-cpp)
+
+add_executable(test_thread tests/test_thread.cc)
+add_dependencies(test_thread DW)
+force_redefine_file_macro_for_sources(test_thread)
+target_link_libraries(test_thread DW yaml-cpp)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
