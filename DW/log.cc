@@ -269,6 +269,7 @@ namespace DW{
         XX(WARN);
         XX(ERROR);
         XX(FATAL);
+        XX(ENABLE)
     #undef XX
         default:
             return "UNKNOW";
@@ -286,12 +287,14 @@ namespace DW{
         XX(WARN, warn);
         XX(ERROR, error);
         XX(FATAL, fatal);
+        XX(ENABLE, enable);
 
         XX(DEBUG, DEBUG);
         XX(INFO, INFO);
         XX(WARN, WARN);
         XX(ERROR, ERROR);
         XX(FATAL, FATAL);
+        XX(ENABLE, ENABLE);
         return LogLevel::UNKNOW;
     #undef XX
     }

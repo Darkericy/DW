@@ -4,10 +4,14 @@ logs:
       appenders:
           - type: FileLogAppender
             file: ./logs/DW/root.txt
+            formatter:  "%d - %m%n"
           - type: StdoutLogAppender
+            formatter:  "%d - %m%n"
     - name: system
       level: debug
       appenders:
           - type: FileLogAppender
             file: ./logs/DW/system.txt
+            formatter:  "%d - %m%n"
           - type: StdoutLogAppender
+            formatter:  "%d - %m%n"

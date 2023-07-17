@@ -17,9 +17,6 @@ namespace DW{
         output.push_back(std::make_pair(prefix, node));
         if(node.IsMap()) {
             for(auto it = node.begin(); it != node.end(); ++it) {
-                if(it->second.IsNull()){
-                    std::cout << it->second.IsScalar();
-                }
                 ListAllMember(prefix.empty() ? it->first.Scalar(): prefix + "." + it->first.Scalar(), it->second, output);
             }
         }
@@ -39,6 +36,7 @@ namespace DW{
 
             if(var) {
                 if(cur_node.IsScalar()) {
+                    //DW_LOG_DEBUG(DW_LOG_ROOT(), __FILE__, __LINE__, TOSTRING(key, " ", cur_node.Scalar()));
                     var->fromString(cur_node.Scalar());
                 } else {
                     std::ostringstream ss;

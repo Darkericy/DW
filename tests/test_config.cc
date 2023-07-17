@@ -137,6 +137,7 @@ void test_log(){
     std::cout << "pause" << std::endl;
     system_log->setFormatter("%d - %m%n");
     DW::DW_LOG_INFO(system_log, __FILE__, __LINE__, DW::TOSTRING("hello system"));
+    DW::DW_LOG_INFO(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("hello system"));
 }
 
 int main(){
