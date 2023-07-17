@@ -14,6 +14,8 @@
 
 #include "util.h"
 #include "singleton.h"
+#include "thread.h"
+#include "mutex.h"
 
 namespace DW{
     class Logger;
@@ -110,11 +112,6 @@ namespace DW{
 
         void init();
 
-        void setPattern(const std::string& pattern){ 
-            m_pattern = pattern;    
-            clearItems();
-            init();
-        };
         std::string getPattern(){ return m_pattern; };
 
         bool isError(){
@@ -135,15 +132,12 @@ namespace DW{
         std::vector<FormatterItem::ptr> m_items;
 
         bool m_error = false;   //检查格式是否有错
-
-        void clearItems(){
-            m_items.clear();
-        }
     };
 
     class LogAppender{
     public:
         using ptr = std::shared_ptr<LogAppender>;
+        using MutexType = Spinlock;
 
         LogAppender():m_level(LogLevel::DEBUG), m_formatter(std::make_shared<LogFormatter>()) {
             //std::cout << "LogAppender creater" << std::endl;
@@ -152,8 +146,8 @@ namespace DW{
         virtual ~LogAppender() {};
         virtual void log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 
-        void setFormatter(LogFormatter::ptr formatter){ m_formatter = formatter; };
-        LogFormatter::ptr getFormatter() { return m_formatter; };
+        void setFormatter(LogFormatter::ptr formatter);
+        LogFormatter::ptr getFormatter();
 
         void setLevel(LogLevel::Level level){ m_level = level; };
         LogLevel::Level getLevel(){ return m_level; };
@@ -163,11 +157,14 @@ namespace DW{
     protected:
         LogLevel::Level m_level;
         LogFormatter::ptr m_formatter;
+
+        MutexType m_mutex;
     };
 
     class Logger: public std::enable_shared_from_this<Logger>{
     public: 
         using ptr =  std::shared_ptr<Logger>;
+        using MutexType = Spinlock;
 
         Logger(const std::string& name);
 
@@ -187,15 +184,19 @@ namespace DW{
         void insertAppender(LogAppender::ptr appender);
         void eraseAppender(LogAppender::ptr appender);
         void clearAppenders(){
+            MutexType::Lock lock(m_mutex);
             m_appender.clear();
         }
         std::unordered_set<LogAppender::ptr> getAppenderList(){
+            MutexType::Lock lock(m_mutex);
             return m_appender;
         }
         void setAppenderList(const std::unordered_set<LogAppender::ptr>& list){
+            MutexType::Lock lock(m_mutex);
             m_appender = list;
         }
         void setFormatter(const std::string& pattern);
+        void setFormatter(LogFormatter::ptr val);
 
         std::string getName() { return m_logname; };
 
@@ -205,6 +206,8 @@ namespace DW{
         std::string m_logname;                          
         LogLevel::Level m_level;
         std::unordered_set<LogAppender::ptr> m_appender;
+
+        MutexType m_mutex;
     };
 
     class StdLogAppender: public LogAppender{
@@ -235,10 +238,13 @@ namespace DW{
     private:    
         std::string m_filename;
         std::ofstream m_filestream;
+
+        uint64_t m_lastTime = 0;
     };
 
     class LoggerManager{
     public:
+        using MutexType = Spinlock;
     
         LoggerManager();
 
@@ -251,6 +257,8 @@ namespace DW{
     private:
         Logger::ptr m_root;
         std::unordered_map<std::string, Logger::ptr> m_loggers;
+
+        MutexType m_mutex;
     };
 
     //成功，在不用宏的前提下成果实现了视频中的功能。
@@ -263,6 +271,7 @@ namespace DW{
             event->setFile(file);
             event->setLine(line);
             event->setContent(content);
+            event->setThreadName(Thread::GetName());
 
             logger->log(level, event);
         }
@@ -294,6 +303,7 @@ namespace DW{
             event->setFile(file);
             event->setLine(line);
             event->contentFormat(format, std::forward<Args>(args)...);
+            event->setThreadName(Thread::GetName());
 
             logger->log(level, event);
         }
@@ -326,6 +336,7 @@ namespace DW{
     }
 
     inline LoggerPtr DW_LOG_ROOT(){
+        //std::cout << "DW_LOG_ROOT" << std::endl;
         return LoggerMgr::GetInstance()->getRoot();
     }
     inline LoggerPtr DW_LOG_NAME(const std::string& name){
@@ -339,4 +350,4 @@ namespace DW{
         return os.str();
     }
 
-};
+}

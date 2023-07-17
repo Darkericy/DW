@@ -158,7 +158,7 @@ namespace DW{
             //std::cout << "获取自己的智能指针之前" << std::endl;
 
             auto self = shared_from_this();
-
+            MutexType::Lock lock(m_mutex);
             //std::cout << "Logger::log" << std::endl;
 
             for(const auto& app: m_appender){
@@ -170,6 +170,7 @@ namespace DW{
 
     std::string Logger::toYamlString() {
         YAML::Node node;
+        MutexType::Lock lock(m_mutex);
         node["name"] = m_logname;
         if(m_level != LogLevel::UNKNOW) {
             node["level"] = LogLevel::ToString(m_level);
@@ -187,35 +188,63 @@ namespace DW{
     LogLevel::Level Logger::getLevel(){
         return m_level;
     }
+
     void Logger::setLevel(LogLevel::Level level){
         m_level = level;
     }
 
         //插入和删除输出地
     void Logger::insertAppender(LogAppender::ptr appender){
+        MutexType::Lock lock(m_mutex);
         m_appender.insert(appender);
     }
     void Logger::eraseAppender(LogAppender::ptr appender){
+        MutexType::Lock lock(m_mutex);
         if(m_appender.find(appender) != m_appender.end()){
             m_appender.erase(appender);
         }
     }
 
     void Logger::setFormatter(const std::string& pattern){
-        for(auto& appender: m_appender){
-            appender->getFormatter()->setPattern(pattern);
+        LogFormatter::ptr new_val = std::make_shared<LogFormatter>(pattern);
+        if(new_val->isError()){
+            std::cout << "Logger setFormatter name=" << m_logname
+                  << " pattern=" << pattern << " invalid formatter"
+                  << std::endl;
+            return;
         }
+        setFormatter(new_val);
+    }
+
+    void Logger::setFormatter(LogFormatter::ptr pattern){
+        MutexType::Lock lock(m_mutex);
+        for(auto& appender: m_appender){
+            //MutexType::Lock ll(appender->m_mutex);
+            //和大佬的不太一样，我在这里没有加锁(真的可以吗？)
+            appender->setFormatter(pattern);
+        }
+    }
+
+    void LogAppender::setFormatter(LogFormatter::ptr formatter){
+        MutexType::Lock lock(m_mutex);
+        m_formatter = formatter;
+    }
+    LogFormatter::ptr LogAppender::getFormatter(){
+        MutexType::Lock lock(m_mutex);
+        return m_formatter;
     }
 
     void StdLogAppender::log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
             //std::cout << "StdLogAppender::log" << std::endl;
+            MutexType::Lock lock(m_mutex);
             std::cout << m_formatter->formatter(logger, level, event);
         }
     }
 
     std::string StdLogAppender::toYamlString() {
         YAML::Node node;
+        MutexType::Lock lock(m_mutex);
         node["type"] = "StdoutLogAppender";
         if(m_level != LogLevel::UNKNOW) {
             node["level"] = LogLevel::ToString(m_level);
@@ -231,11 +260,19 @@ namespace DW{
     void FileLogAppender::log(LoggerPtr logger, LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
             //std::cout << "FileLogAppender::log" << std::endl;
+            uint64_t now = event->getTime();
+            if(now >= (m_lastTime + 3)) {
+                reopen();
+                m_lastTime = now;
+            }
+
+            MutexType::Lock lock(m_mutex);
             m_filestream << m_formatter->formatter(logger, level, event);
         }
     }
 
     bool FileLogAppender::reopen(){
+        MutexType::Lock lock(m_mutex);
         if(!m_filestream){
             m_filestream.open(m_filename);
         }
@@ -244,6 +281,7 @@ namespace DW{
 
     std::string FileLogAppender::toYamlString() {
         YAML::Node node;
+        MutexType::Lock lock(m_mutex);
         node["type"] = "FileLogAppender";
         node["file"] = m_filename;
         if(m_level != LogLevel::UNKNOW) {
@@ -437,18 +475,23 @@ namespace DW{
     }
 
     LoggerManager::LoggerManager(): m_root(std::make_shared<Logger>("root")){
+        //std::cout << 1;
         m_root->insertAppender(std::make_shared<StdLogAppender>());
         m_loggers["root"] = m_root;
     }
 
     void LoggerManager::insertLogger(Logger::ptr logger){
+        MutexType::Lock lock(m_mutex);
         m_loggers.insert({logger->getName(), logger});
     }
 
     Logger::ptr LoggerManager::getLogger(const std::string& name){
-        auto it = m_loggers.find(name);
-        if(it != m_loggers.end()){
-            return it->second;
+        {
+            MutexType::Lock lock(m_mutex);
+            auto it = m_loggers.find(name);
+            if(it != m_loggers.end()){
+                return it->second;
+            }
         }
 
         Logger::ptr tmp = std::make_shared<Logger>(name);
@@ -463,6 +506,7 @@ namespace DW{
 
     std::string LoggerManager::toYamlString() {
         YAML::Node node;
+        MutexType::Lock lock(m_mutex);
         for(auto& i : m_loggers) {
             node.push_back(YAML::Load(i.second->toYamlString()));
         }

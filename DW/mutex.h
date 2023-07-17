@@ -3,6 +3,7 @@
 #include <semaphore.h>
 #include <unistd.h>
 #include <stdexcept>
+#include <atomic>
 
 namespace DW{
     //信号量
@@ -113,6 +114,111 @@ namespace DW{
     private:
         T& m_mutex;
         bool m_locked;
+    };
+
+    class NullMutex {
+    public:
+        using Lock = ScopedLockImpl<NullMutex>;
+
+        NullMutex() {}
+
+        ~NullMutex() {}
+
+        void lock() {}
+
+        void unlock() {}
+    };
+
+    class NullRWMutex {
+    public:
+        using ReadLock = ReadScopedLockImpl<NullRWMutex>;
+        using WriteLock = WriteScopedLockImpl<NullRWMutex>; 
+
+        NullRWMutex() {}
+
+        ~NullRWMutex() {}
+
+        void rdlock() {}
+        void wrlock() {}
+
+        void unlock() {}
+    };
+
+    class Spinlock {
+    public:
+        /// 局部锁
+        using Lock = ScopedLockImpl<Spinlock>;
+
+        Spinlock() {
+            pthread_spin_init(&m_mutex, 0);
+        }
+
+        ~Spinlock() {
+            pthread_spin_destroy(&m_mutex);
+        }
+
+        void lock() {
+            pthread_spin_lock(&m_mutex);
+        }
+
+        void unlock() {
+            pthread_spin_unlock(&m_mutex);
+        }
+    private:
+        /// 自旋锁
+        pthread_spinlock_t m_mutex;
+    };
+
+    class CASLock  {
+    public:
+        using Lock = ScopedLockImpl<CASLock>;
+
+        CASLock() {
+            m_mutex.clear();
+        }
+
+        ~CASLock() {
+        }
+
+        /**
+         * @brief 上锁
+         */
+        void lock() {
+            while(std::atomic_flag_test_and_set_explicit(&m_mutex, std::memory_order_acquire));
+        }
+
+        /**
+         * @brief 解锁
+         */
+        void unlock() {
+            std::atomic_flag_clear_explicit(&m_mutex, std::memory_order_release);
+        }
+    private:
+        /// 原子状态
+        volatile std::atomic_flag m_mutex;
+    };
+
+    class Mutex{
+    public: 
+        using Lock = ScopedLockImpl<Mutex>;
+
+        Mutex() {
+            pthread_mutex_init(&m_mutex, nullptr);
+        }
+
+        ~Mutex() {
+            pthread_mutex_destroy(&m_mutex);
+        }
+
+        void lock() {
+            pthread_mutex_lock(&m_mutex);
+        }
+
+        void unlock() {
+            pthread_mutex_unlock(&m_mutex);
+        }
+    private:
+        pthread_mutex_t m_mutex;
     };
 
     class RWMutex{

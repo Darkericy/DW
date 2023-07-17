@@ -1,0 +1,6 @@
+logs:
+    - name: root
+      level: debug
+      appenders:
+          - type: FileLogAppender
+            file: ./logs/DW/mutex.txt
