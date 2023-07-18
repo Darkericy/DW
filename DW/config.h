@@ -16,6 +16,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include "log.h"
+#include "mutex.h"
 
 namespace DW{
     class ConfigVarBase{
@@ -242,6 +243,7 @@ namespace DW{
     public:
         using on_change_cb = std::function<void (const T& old_value, const T& new_value)>;
         using ptr = std::shared_ptr<ConfigVar>;
+        using RWMutexType = RWMutex;
 
         ConfigVar(const std::string& name, 
                 const T& default_value,
@@ -253,6 +255,7 @@ namespace DW{
         std::string toString() override {
             try {
                 //return boost::lexical_cast<std::string>(m_val);
+                RWMutexType::ReadLock lock(m_mutex);
                 return ToStr()(m_val);      //这里是创建了一个匿名对象，然后调用其方法
             } catch (std::exception& e) {
                 std::ostringstream os;
@@ -277,16 +280,22 @@ namespace DW{
         }
 
         const T& getValue() {
+            RWMutexType::ReadLock lock(m_mutex);
             return m_val;
         }
 
         void setValue(const T& v) {
-            if(v == m_val){
-                return;
+            {
+                RWMutexType::ReadLock lock(m_mutex);
+                if(v == m_val){
+                    return;
+                }
+                for(const auto& [key, cb]: m_cbs){
+                    cb(m_val, v);
+                }
             }
-            for(const auto& [key, cb]: m_cbs){
-                cb(m_val, v);
-            }
+
+            RWMutexType::WriteLock lock(m_mutex);
             m_val = v;
         }
 
@@ -294,37 +303,45 @@ namespace DW{
 
         uint64_t addListener(on_change_cb cb) {
             static uint64_t s_fun_id = 0;
+            RWMutexType::WriteLock lock(m_mutex);
             ++s_fun_id;
             m_cbs[s_fun_id] = cb;
             return s_fun_id;
         }
 
         void delListener(uint64_t key) {
+            RWMutexType::WriteLock lock(m_mutex);
             m_cbs.erase(key);
         }
 
         on_change_cb getListener(uint64_t key) {
+            RWMutexType::ReadLock lock(m_mutex);
             auto it = m_cbs.find(key);
             return it == m_cbs.end() ? nullptr : it->second;
         }
 
         void clearListener() {
+            RWMutexType::WriteLock lock(m_mutex);
             m_cbs.clear();
         }
 
     private:
         T m_val;
         std::unordered_map<uint64_t, on_change_cb> m_cbs;
+
+        RWMutexType m_mutex;
     };
 
     class Config{
     public:
         using ConfigVarMap = std::unordered_map<std::string, ConfigVarBase::ptr>;
+        using RWMutexType = RWMutex;
 
         template<class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string& name, const T& val,
                                                 const std::string& description = "")
         {
+            RWMutexType::WriteLock lock(GetMutex());
             auto it = GetDatas().find(name);
             if(it != GetDatas().end()) {
                 auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
@@ -354,6 +371,7 @@ namespace DW{
         
         template<class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string& name){
+            RWMutexType::ReadLock lock(GetMutex());
             auto ret = GetDatas().find(name);
             if(ret == GetDatas().end()){
                 return nullptr;
@@ -362,14 +380,18 @@ namespace DW{
         }
 
         static void LoadFromYaml(const YAML::Node& root);
-
-
-    private:
         static ConfigVarBase::ptr LookupBase(const std::string& name);
+        static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+    private:
 
         static ConfigVarMap& GetDatas() {
             static ConfigVarMap s_datas;
             return s_datas;
+        }
+
+        static RWMutexType& GetMutex() {
+            static RWMutexType s_mutex;
+            return s_mutex;
         }
     };
 }

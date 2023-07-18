@@ -2,6 +2,7 @@
 
 namespace DW{
     ConfigVarBase::ptr Config::LookupBase(const std::string& name) {
+        RWMutexType::ReadLock lock(GetMutex());
         auto it = GetDatas().find(name);
         return it == GetDatas().end() ? nullptr : it->second;
     }
@@ -45,5 +46,15 @@ namespace DW{
                 }
             }
         }
+    }
+
+    void Config::Visit(std::function<void(ConfigVarBase::ptr)> cb) {
+        RWMutexType::ReadLock lock(GetMutex());
+        ConfigVarMap& m = GetDatas();
+        for(auto it = m.begin();
+                it != m.end(); ++it) {
+            cb(it->second);
+        }
+
     }
 }

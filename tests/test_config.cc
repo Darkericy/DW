@@ -145,5 +145,14 @@ int main(){
     //test_load();
     //test_cb();
 
-    test_log();
+    //test_log();
+
+    DW::Config::Visit([](DW::ConfigVarBase::ptr var) {
+        DW::DW_LOG_INFO(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING(
+            "name=", var->getName(),
+            " description=", var->getDescription(),
+            " typename=", var->getTypeName(),
+            " value=", var->toString()
+        ));
+    });
 }

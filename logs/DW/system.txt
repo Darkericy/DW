@@ -1,2 +1,2 @@
-2023-07-17 22:15:26	9358	UNKNOW	0	[INFO]	[system]	tests/test_config.cc:136	hello system
-2023-07-17 22:15:26 - hello system
+2023-07-18 09:37:23	6744	UNKNOW	0	[INFO]	[system]	tests/test_config.cc:136	hello system
+2023-07-18 09:37:23 - hello system
