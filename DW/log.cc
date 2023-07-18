@@ -261,6 +261,7 @@ namespace DW{
         if(level >= m_level){
             //std::cout << "FileLogAppender::log" << std::endl;
             uint64_t now = event->getTime();
+            //std::cout << now - m_lastTime << std::endl;
             if(now >= (m_lastTime + 3)) {
                 reopen();
                 m_lastTime = now;
@@ -273,9 +274,11 @@ namespace DW{
 
     bool FileLogAppender::reopen(){
         MutexType::Lock lock(m_mutex);
-        if(!m_filestream){
-            m_filestream.open(m_filename);
+        if(m_filestream.is_open()){
+            //std::cout << "here" << std::endl;
+            m_filestream.close();
         }
+        m_filestream.open(m_filename, std::ios::app);
         return !!m_filestream;      //不得不说这里两个否定符号是真的让我感叹，这个大佬在各个细节上真的很让我很佩服
     }
 
