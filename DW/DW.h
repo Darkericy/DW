@@ -6,3 +6,5 @@
 #include "thread.h"
 #include "util.h"
 #include "mutex.h"
+#include "macro.h"
+#include "fiber.h"

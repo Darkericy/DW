@@ -12,10 +12,10 @@
 #include <functional>
 #include <stdarg.h>
 
-#include "util.h"
 #include "singleton.h"
-#include "thread.h"
 #include "mutex.h"
+#include "thread.h"
+#include "util.h"
 
 namespace DW{
     class Logger;

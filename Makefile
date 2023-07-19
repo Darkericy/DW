@@ -171,6 +171,32 @@ test_thread/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/build
 .PHONY : test_thread/fast
 
+#=============================================================================
+# Target rules for targets named test_util
+
+# Build rule for target.
+test_util: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_util
+.PHONY : test_util
+
+# fast build rule for target.
+test_util/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
+#=============================================================================
+# Target rules for targets named test_fiber
+
+# Build rule for target.
+test_fiber: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_fiber
+.PHONY : test_fiber
+
+# fast build rule for target.
+test_fiber/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/build
+.PHONY : test_fiber/fast
+
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
 
@@ -194,6 +220,30 @@ DW/config.s: DW/config.cc.s
 DW/config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.s
 .PHONY : DW/config.cc.s
+
+DW/fiber.o: DW/fiber.cc.o
+.PHONY : DW/fiber.o
+
+# target to build an object file
+DW/fiber.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fiber.cc.o
+.PHONY : DW/fiber.cc.o
+
+DW/fiber.i: DW/fiber.cc.i
+.PHONY : DW/fiber.i
+
+# target to preprocess a source file
+DW/fiber.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fiber.cc.i
+.PHONY : DW/fiber.cc.i
+
+DW/fiber.s: DW/fiber.cc.s
+.PHONY : DW/fiber.s
+
+# target to generate assembly for a file
+DW/fiber.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fiber.cc.s
+.PHONY : DW/fiber.cc.s
 
 DW/log.o: DW/log.cc.o
 .PHONY : DW/log.o
@@ -315,6 +365,30 @@ tests/test_config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
 .PHONY : tests/test_config.cc.s
 
+tests/test_fiber.o: tests/test_fiber.cc.o
+.PHONY : tests/test_fiber.o
+
+# target to build an object file
+tests/test_fiber.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o
+.PHONY : tests/test_fiber.cc.o
+
+tests/test_fiber.i: tests/test_fiber.cc.i
+.PHONY : tests/test_fiber.i
+
+# target to preprocess a source file
+tests/test_fiber.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.i
+.PHONY : tests/test_fiber.cc.i
+
+tests/test_fiber.s: tests/test_fiber.cc.s
+.PHONY : tests/test_fiber.s
+
+# target to generate assembly for a file
+tests/test_fiber.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.s
+.PHONY : tests/test_fiber.cc.s
+
 tests/test_thread.o: tests/test_thread.cc.o
 .PHONY : tests/test_thread.o
 
@@ -338,6 +412,30 @@ tests/test_thread.s: tests/test_thread.cc.s
 tests/test_thread.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.s
 .PHONY : tests/test_thread.cc.s
+
+tests/test_util.o: tests/test_util.cc.o
+.PHONY : tests/test_util.o
+
+# target to build an object file
+tests/test_util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.o
+.PHONY : tests/test_util.cc.o
+
+tests/test_util.i: tests/test_util.cc.i
+.PHONY : tests/test_util.i
+
+# target to preprocess a source file
+tests/test_util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.i
+.PHONY : tests/test_util.cc.i
+
+tests/test_util.s: tests/test_util.cc.s
+.PHONY : tests/test_util.s
+
+# target to generate assembly for a file
+tests/test_util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.s
+.PHONY : tests/test_util.cc.s
 
 tests/testlog.o: tests/testlog.cc.o
 .PHONY : tests/testlog.o
@@ -373,11 +471,16 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DW"
 	@echo "... test_config"
+	@echo "... test_fiber"
 	@echo "... test_thread"
+	@echo "... test_util"
 	@echo "... testlog"
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
 	@echo "... DW/config.s"
+	@echo "... DW/fiber.o"
+	@echo "... DW/fiber.i"
+	@echo "... DW/fiber.s"
 	@echo "... DW/log.o"
 	@echo "... DW/log.i"
 	@echo "... DW/log.s"
@@ -393,9 +496,15 @@ help:
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"
+	@echo "... tests/test_fiber.o"
+	@echo "... tests/test_fiber.i"
+	@echo "... tests/test_fiber.s"
 	@echo "... tests/test_thread.o"
 	@echo "... tests/test_thread.i"
 	@echo "... tests/test_thread.s"
+	@echo "... tests/test_util.o"
+	@echo "... tests/test_util.i"
+	@echo "... tests/test_util.s"
 	@echo "... tests/testlog.o"
 	@echo "... tests/testlog.i"
 	@echo "... tests/testlog.s"
