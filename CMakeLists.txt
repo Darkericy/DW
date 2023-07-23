@@ -17,6 +17,7 @@ set(
     DW/thread.cc
     DW/mutex.cc
     DW/fiber.cc
+    DW/scheduler.cc
 )
 
 add_library(DW SHARED ${LIB_SRC})
@@ -48,6 +49,11 @@ add_executable(test_fiber tests/test_fiber.cc)
 add_dependencies(test_fiber DW)
 force_redefine_file_macro_for_sources(test_fiber)
 target_link_libraries(test_fiber DW yaml-cpp)
+
+add_executable(test_scheduler tests/test_scheduler.cc)
+add_dependencies(test_scheduler DW)
+force_redefine_file_macro_for_sources(test_scheduler)
+target_link_libraries(test_scheduler DW yaml-cpp)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

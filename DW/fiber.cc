@@ -13,8 +13,8 @@ namespace DW{
     static std::atomic<uint64_t> s_fiber_id {0};
     static std::atomic<uint64_t> s_fiber_count {0};
 
-    static thread_local Fiber* t_fiber = nullptr;
-    static thread_local Fiber::ptr t_threadFiber = nullptr;
+    static thread_local Fiber* t_fiber = nullptr;       //当前正在工作的携程
+    static thread_local Fiber::ptr t_threadFiber = nullptr; //主携程
 
     static ConfigVar<uint32_t>::ptr g_fiber_stack_size =
         Config::Lookup<uint32_t>("fiber.stack_size", 1024 * 1024, "fiber stack size");
@@ -33,7 +33,7 @@ namespace DW{
     using StackAllocator = MallocStackAllocator;
 
     Fiber::Fiber() {
-        m_state = EXEC;
+        m_state = INIT;
         SetThis(this);
 
         if(getcontext(&m_ctx)) {
@@ -43,11 +43,13 @@ namespace DW{
         ++s_fiber_count;
 
         DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("Fiber::Fiber main"));
+        m_state = READY;
     }
 
     Fiber::Fiber(std::function<void()> cb, size_t stacksize)
         :m_id(++s_fiber_id)
         ,m_cb(cb) {
+        m_state = INIT;
         ++s_fiber_count;
         m_stacksize = stacksize ? stacksize : g_fiber_stack_size->getValue();
 
@@ -62,19 +64,23 @@ namespace DW{
         makecontext(&m_ctx, &Fiber::MainFunc, 0);
 
         DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("Fiber::Fiber id=", m_id));
+        m_state = READY;
     }
 
     Fiber::~Fiber() {
         --s_fiber_count;
+        //DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("destory id= ", GetThreadId()));
         if(m_stack) {
+            //DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("destory state= ", m_state));
             DW_ASSERT(m_state == TERM
                     || m_state == EXCEPT
-                    || m_state == INIT);
+                    || m_state == READY);
 
             StackAllocator::Dealloc(m_stack, m_stacksize);
         } else {
+            //DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("destory state= ", m_state));
             DW_ASSERT(!m_cb);
-            DW_ASSERT(m_state == EXEC);
+            DW_ASSERT(m_state == READY);
 
             Fiber* cur = t_fiber;
             if(cur == this) {
@@ -83,6 +89,7 @@ namespace DW{
         }
 
         std::stringstream os;
+        //os.clear();
         os << "Fiber::~Fiber id=" << m_id
             << " total=" << s_fiber_count;
         DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, os.str());
@@ -94,7 +101,7 @@ namespace DW{
         DW_ASSERT(m_stack);
         DW_ASSERT(m_state == TERM
                 || m_state == EXCEPT
-                || m_state == INIT);
+                || m_state == READY);
         m_cb = cb;
         if(getcontext(&m_ctx)) {
             DW_ASSERT(false, "getcontext");
@@ -105,7 +112,7 @@ namespace DW{
         m_ctx.uc_stack.ss_size = m_stacksize;
 
         makecontext(&m_ctx, &Fiber::MainFunc, 0);
-        m_state = INIT;
+        m_state = READY;
     }
 
     //切换到当前协程执行
@@ -135,6 +142,7 @@ namespace DW{
 
     //返回当前协程
     Fiber::ptr Fiber::GetThis() {
+        //携程模块要使用时都要调用这个函数创建一个主携程
         if(t_fiber) {
             return t_fiber->shared_from_this();
         }
@@ -169,6 +177,7 @@ namespace DW{
         Fiber::ptr cur = GetThis();
         DW_ASSERT(cur);
         try {
+            cur->m_state = EXEC;
             cur->m_cb();
             cur->m_cb = nullptr;
             cur->m_state = TERM;

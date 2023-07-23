@@ -197,6 +197,19 @@ test_fiber/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/build
 .PHONY : test_fiber/fast
 
+#=============================================================================
+# Target rules for targets named test_scheduler
+
+# Build rule for target.
+test_scheduler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_scheduler
+.PHONY : test_scheduler
+
+# fast build rule for target.
+test_scheduler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/build
+.PHONY : test_scheduler/fast
+
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
 
@@ -292,6 +305,30 @@ DW/mutex.s: DW/mutex.cc.s
 DW/mutex.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/mutex.cc.s
 .PHONY : DW/mutex.cc.s
+
+DW/scheduler.o: DW/scheduler.cc.o
+.PHONY : DW/scheduler.o
+
+# target to build an object file
+DW/scheduler.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/scheduler.cc.o
+.PHONY : DW/scheduler.cc.o
+
+DW/scheduler.i: DW/scheduler.cc.i
+.PHONY : DW/scheduler.i
+
+# target to preprocess a source file
+DW/scheduler.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/scheduler.cc.i
+.PHONY : DW/scheduler.cc.i
+
+DW/scheduler.s: DW/scheduler.cc.s
+.PHONY : DW/scheduler.s
+
+# target to generate assembly for a file
+DW/scheduler.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/scheduler.cc.s
+.PHONY : DW/scheduler.cc.s
 
 DW/thread.o: DW/thread.cc.o
 .PHONY : DW/thread.o
@@ -389,6 +426,30 @@ tests/test_fiber.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.s
 .PHONY : tests/test_fiber.cc.s
 
+tests/test_scheduler.o: tests/test_scheduler.cc.o
+.PHONY : tests/test_scheduler.o
+
+# target to build an object file
+tests/test_scheduler.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o
+.PHONY : tests/test_scheduler.cc.o
+
+tests/test_scheduler.i: tests/test_scheduler.cc.i
+.PHONY : tests/test_scheduler.i
+
+# target to preprocess a source file
+tests/test_scheduler.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.i
+.PHONY : tests/test_scheduler.cc.i
+
+tests/test_scheduler.s: tests/test_scheduler.cc.s
+.PHONY : tests/test_scheduler.s
+
+# target to generate assembly for a file
+tests/test_scheduler.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.s
+.PHONY : tests/test_scheduler.cc.s
+
 tests/test_thread.o: tests/test_thread.cc.o
 .PHONY : tests/test_thread.o
 
@@ -472,6 +533,7 @@ help:
 	@echo "... DW"
 	@echo "... test_config"
 	@echo "... test_fiber"
+	@echo "... test_scheduler"
 	@echo "... test_thread"
 	@echo "... test_util"
 	@echo "... testlog"
@@ -487,6 +549,9 @@ help:
 	@echo "... DW/mutex.o"
 	@echo "... DW/mutex.i"
 	@echo "... DW/mutex.s"
+	@echo "... DW/scheduler.o"
+	@echo "... DW/scheduler.i"
+	@echo "... DW/scheduler.s"
 	@echo "... DW/thread.o"
 	@echo "... DW/thread.i"
 	@echo "... DW/thread.s"
@@ -499,6 +564,9 @@ help:
 	@echo "... tests/test_fiber.o"
 	@echo "... tests/test_fiber.i"
 	@echo "... tests/test_fiber.s"
+	@echo "... tests/test_scheduler.o"
+	@echo "... tests/test_scheduler.i"
+	@echo "... tests/test_scheduler.s"
 	@echo "... tests/test_thread.o"
 	@echo "... tests/test_thread.i"
 	@echo "... tests/test_thread.s"
