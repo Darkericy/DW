@@ -19,6 +19,7 @@ set(
     DW/fiber.cc
     DW/scheduler.cc
     DW/iomanager.cc
+    DW/timer.cc
 )
 
 add_library(DW SHARED ${LIB_SRC})

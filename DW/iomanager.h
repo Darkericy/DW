@@ -1,13 +1,14 @@
 #pragma once
 
 #include "scheduler.h"
+#include "timer.h"
 
 namespace DW {
 
     /**
      * @brief 基于Epoll的IO协程调度器
      */
-    class IOManager : public Scheduler {
+    class IOManager : public Scheduler, public TimerManager {
     public:
         using ptr = std::shared_ptr<IOManager>;
         using RWMutexType = RWMutex;
@@ -70,8 +71,10 @@ namespace DW {
         void tickle() override;
         bool stopping() override;
         void idle() override;
+        void onTimerInsertedAtFront() override;
 
         void contextResize(size_t size);
+        bool stopping(uint64_t& timeout);
     private:
         /// epoll 文件句柄
         int m_epfd = 0;

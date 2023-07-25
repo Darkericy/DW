@@ -1,5 +1,4 @@
 #include "../DW/DW.h"
-#include "../DW/iomanager.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -54,8 +53,21 @@ void test1() {
     iom.schedule(&test_fiber);
 }
 
+//DW::Timer::ptr s_timer;
+void test_timer() {
+    DW::IOManager iom(2);
+    DW::Timer::ptr s_timer = iom.addTimer(1000, [&s_timer](){
+        static int i = 0;
+        DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, DW::TOSTRING("hello timer i=", i));
+        if(++i == 3) {
+            //s_timer->reset(2000, true);
+            s_timer->cancel();
+        }
+    }, true);
+}
+
 int main(int argc, char** argv) {
-    test1();
-    //test_timer();
+    //test1();
+    test_timer();
     return 0;
 }

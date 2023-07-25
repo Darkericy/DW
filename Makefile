@@ -391,6 +391,30 @@ DW/thread.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/thread.cc.s
 .PHONY : DW/thread.cc.s
 
+DW/timer.o: DW/timer.cc.o
+.PHONY : DW/timer.o
+
+# target to build an object file
+DW/timer.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/timer.cc.o
+.PHONY : DW/timer.cc.o
+
+DW/timer.i: DW/timer.cc.i
+.PHONY : DW/timer.i
+
+# target to preprocess a source file
+DW/timer.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/timer.cc.i
+.PHONY : DW/timer.cc.i
+
+DW/timer.s: DW/timer.cc.s
+.PHONY : DW/timer.s
+
+# target to generate assembly for a file
+DW/timer.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/timer.cc.s
+.PHONY : DW/timer.cc.s
+
 DW/util.o: DW/util.cc.o
 .PHONY : DW/util.o
 
@@ -620,6 +644,9 @@ help:
 	@echo "... DW/thread.o"
 	@echo "... DW/thread.i"
 	@echo "... DW/thread.s"
+	@echo "... DW/timer.o"
+	@echo "... DW/timer.i"
+	@echo "... DW/timer.s"
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
