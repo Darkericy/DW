@@ -223,6 +223,19 @@ test_iomanager/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/build
 .PHONY : test_iomanager/fast
 
+#=============================================================================
+# Target rules for targets named test_hook
+
+# Build rule for target.
+test_hook: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hook
+.PHONY : test_hook
+
+# fast build rule for target.
+test_hook/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/build
+.PHONY : test_hook/fast
+
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
 
@@ -247,6 +260,30 @@ DW/config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.s
 .PHONY : DW/config.cc.s
 
+DW/fd_manager.o: DW/fd_manager.cc.o
+.PHONY : DW/fd_manager.o
+
+# target to build an object file
+DW/fd_manager.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fd_manager.cc.o
+.PHONY : DW/fd_manager.cc.o
+
+DW/fd_manager.i: DW/fd_manager.cc.i
+.PHONY : DW/fd_manager.i
+
+# target to preprocess a source file
+DW/fd_manager.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fd_manager.cc.i
+.PHONY : DW/fd_manager.cc.i
+
+DW/fd_manager.s: DW/fd_manager.cc.s
+.PHONY : DW/fd_manager.s
+
+# target to generate assembly for a file
+DW/fd_manager.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fd_manager.cc.s
+.PHONY : DW/fd_manager.cc.s
+
 DW/fiber.o: DW/fiber.cc.o
 .PHONY : DW/fiber.o
 
@@ -270,6 +307,30 @@ DW/fiber.s: DW/fiber.cc.s
 DW/fiber.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/fiber.cc.s
 .PHONY : DW/fiber.cc.s
+
+DW/hook.o: DW/hook.cc.o
+.PHONY : DW/hook.o
+
+# target to build an object file
+DW/hook.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/hook.cc.o
+.PHONY : DW/hook.cc.o
+
+DW/hook.i: DW/hook.cc.i
+.PHONY : DW/hook.i
+
+# target to preprocess a source file
+DW/hook.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/hook.cc.i
+.PHONY : DW/hook.cc.i
+
+DW/hook.s: DW/hook.cc.s
+.PHONY : DW/hook.s
+
+# target to generate assembly for a file
+DW/hook.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/hook.cc.s
+.PHONY : DW/hook.cc.s
 
 DW/iomanager.o: DW/iomanager.cc.o
 .PHONY : DW/iomanager.o
@@ -487,6 +548,30 @@ tests/test_fiber.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.s
 .PHONY : tests/test_fiber.cc.s
 
+tests/test_hook.o: tests/test_hook.cc.o
+.PHONY : tests/test_hook.o
+
+# target to build an object file
+tests/test_hook.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.o
+.PHONY : tests/test_hook.cc.o
+
+tests/test_hook.i: tests/test_hook.cc.i
+.PHONY : tests/test_hook.i
+
+# target to preprocess a source file
+tests/test_hook.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.i
+.PHONY : tests/test_hook.cc.i
+
+tests/test_hook.s: tests/test_hook.cc.s
+.PHONY : tests/test_hook.s
+
+# target to generate assembly for a file
+tests/test_hook.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.s
+.PHONY : tests/test_hook.cc.s
+
 tests/test_iomanager.o: tests/test_iomanager.cc.o
 .PHONY : tests/test_iomanager.o
 
@@ -618,6 +703,7 @@ help:
 	@echo "... DW"
 	@echo "... test_config"
 	@echo "... test_fiber"
+	@echo "... test_hook"
 	@echo "... test_iomanager"
 	@echo "... test_scheduler"
 	@echo "... test_thread"
@@ -626,9 +712,15 @@ help:
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
 	@echo "... DW/config.s"
+	@echo "... DW/fd_manager.o"
+	@echo "... DW/fd_manager.i"
+	@echo "... DW/fd_manager.s"
 	@echo "... DW/fiber.o"
 	@echo "... DW/fiber.i"
 	@echo "... DW/fiber.s"
+	@echo "... DW/hook.o"
+	@echo "... DW/hook.i"
+	@echo "... DW/hook.s"
 	@echo "... DW/iomanager.o"
 	@echo "... DW/iomanager.i"
 	@echo "... DW/iomanager.s"
@@ -656,6 +748,9 @@ help:
 	@echo "... tests/test_fiber.o"
 	@echo "... tests/test_fiber.i"
 	@echo "... tests/test_fiber.s"
+	@echo "... tests/test_hook.o"
+	@echo "... tests/test_hook.i"
+	@echo "... tests/test_hook.s"
 	@echo "... tests/test_iomanager.o"
 	@echo "... tests/test_iomanager.i"
 	@echo "... tests/test_iomanager.s"

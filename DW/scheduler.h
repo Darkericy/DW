@@ -4,12 +4,14 @@
 #include <vector>
 #include <list>
 #include <iostream>
+
 #include "fiber.h"
 #include "thread.h"
 #include "mutex.h"
+#include "noncopyable.h"
 
 namespace DW {
-    class Scheduler {
+    class Scheduler: Noncopyable{
     public:
         using ptr = std::shared_ptr<Scheduler>;
         using MutexType = Mutex;

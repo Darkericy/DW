@@ -20,6 +20,9 @@ set(
     DW/scheduler.cc
     DW/iomanager.cc
     DW/timer.cc
+    DW/hook.cc
+    DW/fd_manager.cc
+    DW/noncopyable.h
 )
 
 add_library(DW SHARED ${LIB_SRC})
@@ -61,6 +64,11 @@ add_executable(test_iomanager tests/test_iomanager.cc)
 add_dependencies(test_iomanager DW)
 force_redefine_file_macro_for_sources(test_iomanager)
 target_link_libraries(test_iomanager DW yaml-cpp)
+
+add_executable(test_hook tests/test_hook.cc)
+add_dependencies(test_hook DW)
+force_redefine_file_macro_for_sources(test_hook)
+target_link_libraries(test_hook DW yaml-cpp)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

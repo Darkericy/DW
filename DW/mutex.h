@@ -5,9 +5,11 @@
 #include <stdexcept>
 #include <atomic>
 
+#include "noncopyable.h"
+
 namespace DW{
     //信号量
-    class Semaphore{
+    class Semaphore: Noncopyable{
     public:
         Semaphore(const Semaphore&) = delete;
         Semaphore(Semaphore&&) = delete;
@@ -116,7 +118,7 @@ namespace DW{
         bool m_locked;
     };
 
-    class NullMutex {
+    class NullMutex: Noncopyable {
     public:
         using Lock = ScopedLockImpl<NullMutex>;
 
@@ -129,7 +131,7 @@ namespace DW{
         void unlock() {}
     };
 
-    class NullRWMutex {
+    class NullRWMutex: Noncopyable {
     public:
         using ReadLock = ReadScopedLockImpl<NullRWMutex>;
         using WriteLock = WriteScopedLockImpl<NullRWMutex>; 
@@ -144,7 +146,7 @@ namespace DW{
         void unlock() {}
     };
 
-    class Spinlock {
+    class Spinlock: Noncopyable {
     public:
         /// 局部锁
         using Lock = ScopedLockImpl<Spinlock>;
@@ -169,7 +171,7 @@ namespace DW{
         pthread_spinlock_t m_mutex;
     };
 
-    class CASLock  {
+    class CASLock: Noncopyable  {
     public:
         using Lock = ScopedLockImpl<CASLock>;
 
@@ -198,7 +200,7 @@ namespace DW{
         volatile std::atomic_flag m_mutex;
     };
 
-    class Mutex{
+    class Mutex: Noncopyable{
     public: 
         using Lock = ScopedLockImpl<Mutex>;
 
@@ -221,7 +223,7 @@ namespace DW{
         pthread_mutex_t m_mutex;
     };
 
-    class RWMutex{
+    class RWMutex: Noncopyable{
     public:
         using ReadLock = ReadScopedLockImpl<RWMutex>;
         using WriteLock = WriteScopedLockImpl<RWMutex>; 

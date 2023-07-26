@@ -7,15 +7,12 @@
 #include <string>
 
 #include "mutex.h"
+#include "noncopyable.h"
 
 namespace DW{
-    class Thread{
+    class Thread: Noncopyable{
     public:
         using ptr = std::shared_ptr<Thread>;
-
-        Thread(const Thread&) = delete;
-        Thread(Thread&&) = delete;
-        Thread& operator==(const Thread&) = delete;
 
         Thread(std::function<void()> cb, const std::string& name);
         ~Thread();

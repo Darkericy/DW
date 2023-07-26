@@ -2,6 +2,7 @@
 #include "log.h"
 #include "macro.h"
 #include "fiber.h"
+#include "hook.h"
 
 namespace DW {
 
@@ -146,6 +147,7 @@ namespace DW {
 
     void Scheduler::run() {
         DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING(m_name, " run"));
+        set_hook_enable(true);
         setThis();
         if(static_cast<int>(DW::GetThreadId()) != m_rootThread) {
             t_scheduler_fiber = Fiber::GetThis().get();
