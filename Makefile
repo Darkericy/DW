@@ -236,6 +236,43 @@ test_hook/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/build
 .PHONY : test_hook/fast
 
+#=============================================================================
+# Target rules for targets named test_address
+
+# Build rule for target.
+test_address: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_address
+.PHONY : test_address
+
+# fast build rule for target.
+test_address/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/build
+.PHONY : test_address/fast
+
+DW/address.o: DW/address.cc.o
+.PHONY : DW/address.o
+
+# target to build an object file
+DW/address.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/address.cc.o
+.PHONY : DW/address.cc.o
+
+DW/address.i: DW/address.cc.i
+.PHONY : DW/address.i
+
+# target to preprocess a source file
+DW/address.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/address.cc.i
+.PHONY : DW/address.cc.i
+
+DW/address.s: DW/address.cc.s
+.PHONY : DW/address.s
+
+# target to generate assembly for a file
+DW/address.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/address.cc.s
+.PHONY : DW/address.cc.s
+
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
 
@@ -500,6 +537,30 @@ DW/util.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.s
 .PHONY : DW/util.cc.s
 
+tests/test_address.o: tests/test_address.cc.o
+.PHONY : tests/test_address.o
+
+# target to build an object file
+tests/test_address.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.o
+.PHONY : tests/test_address.cc.o
+
+tests/test_address.i: tests/test_address.cc.i
+.PHONY : tests/test_address.i
+
+# target to preprocess a source file
+tests/test_address.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.i
+.PHONY : tests/test_address.cc.i
+
+tests/test_address.s: tests/test_address.cc.s
+.PHONY : tests/test_address.s
+
+# target to generate assembly for a file
+tests/test_address.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.s
+.PHONY : tests/test_address.cc.s
+
 tests/test_config.o: tests/test_config.cc.o
 .PHONY : tests/test_config.o
 
@@ -701,6 +762,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DW"
+	@echo "... test_address"
 	@echo "... test_config"
 	@echo "... test_fiber"
 	@echo "... test_hook"
@@ -709,6 +771,9 @@ help:
 	@echo "... test_thread"
 	@echo "... test_util"
 	@echo "... testlog"
+	@echo "... DW/address.o"
+	@echo "... DW/address.i"
+	@echo "... DW/address.s"
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
 	@echo "... DW/config.s"
@@ -742,6 +807,9 @@ help:
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
+	@echo "... tests/test_address.o"
+	@echo "... tests/test_address.i"
+	@echo "... tests/test_address.s"
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"
