@@ -310,9 +310,4 @@ namespace DW {
         sockaddr m_addr;
     };
 
-    /**
-     * @brief 流式输出Address
-     */
-    std::ostream& operator<<(std::ostream& os, const Address& addr);
-
 }

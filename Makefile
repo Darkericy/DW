@@ -249,6 +249,19 @@ test_address/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/build
 .PHONY : test_address/fast
 
+#=============================================================================
+# Target rules for targets named test_socket
+
+# Build rule for target.
+test_socket: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_socket
+.PHONY : test_socket
+
+# fast build rule for target.
+test_socket/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/build
+.PHONY : test_socket/fast
+
 DW/address.o: DW/address.cc.o
 .PHONY : DW/address.o
 
@@ -464,6 +477,30 @@ DW/scheduler.s: DW/scheduler.cc.s
 DW/scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/scheduler.cc.s
 .PHONY : DW/scheduler.cc.s
+
+DW/socket.o: DW/socket.cc.o
+.PHONY : DW/socket.o
+
+# target to build an object file
+DW/socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/socket.cc.o
+.PHONY : DW/socket.cc.o
+
+DW/socket.i: DW/socket.cc.i
+.PHONY : DW/socket.i
+
+# target to preprocess a source file
+DW/socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/socket.cc.i
+.PHONY : DW/socket.cc.i
+
+DW/socket.s: DW/socket.cc.s
+.PHONY : DW/socket.s
+
+# target to generate assembly for a file
+DW/socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/socket.cc.s
+.PHONY : DW/socket.cc.s
 
 DW/thread.o: DW/thread.cc.o
 .PHONY : DW/thread.o
@@ -681,6 +718,30 @@ tests/test_scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.s
 .PHONY : tests/test_scheduler.cc.s
 
+tests/test_socket.o: tests/test_socket.cc.o
+.PHONY : tests/test_socket.o
+
+# target to build an object file
+tests/test_socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.o
+.PHONY : tests/test_socket.cc.o
+
+tests/test_socket.i: tests/test_socket.cc.i
+.PHONY : tests/test_socket.i
+
+# target to preprocess a source file
+tests/test_socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.i
+.PHONY : tests/test_socket.cc.i
+
+tests/test_socket.s: tests/test_socket.cc.s
+.PHONY : tests/test_socket.s
+
+# target to generate assembly for a file
+tests/test_socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.s
+.PHONY : tests/test_socket.cc.s
+
 tests/test_thread.o: tests/test_thread.cc.o
 .PHONY : tests/test_thread.o
 
@@ -768,6 +829,7 @@ help:
 	@echo "... test_hook"
 	@echo "... test_iomanager"
 	@echo "... test_scheduler"
+	@echo "... test_socket"
 	@echo "... test_thread"
 	@echo "... test_util"
 	@echo "... testlog"
@@ -798,6 +860,9 @@ help:
 	@echo "... DW/scheduler.o"
 	@echo "... DW/scheduler.i"
 	@echo "... DW/scheduler.s"
+	@echo "... DW/socket.o"
+	@echo "... DW/socket.i"
+	@echo "... DW/socket.s"
 	@echo "... DW/thread.o"
 	@echo "... DW/thread.i"
 	@echo "... DW/thread.s"
@@ -825,6 +890,9 @@ help:
 	@echo "... tests/test_scheduler.o"
 	@echo "... tests/test_scheduler.i"
 	@echo "... tests/test_scheduler.s"
+	@echo "... tests/test_socket.o"
+	@echo "... tests/test_socket.i"
+	@echo "... tests/test_socket.s"
 	@echo "... tests/test_thread.o"
 	@echo "... tests/test_thread.i"
 	@echo "... tests/test_thread.s"

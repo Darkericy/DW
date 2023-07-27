@@ -20,9 +20,7 @@ void test() {
 
     auto addr = DW::Address::LookupAny("localhost:4080");
     if(addr) {
-        std::stringstream os;
-        os << *addr;
-        DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, os.str());
+        DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, addr->toString());
     } else {
         DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, "error");
     }

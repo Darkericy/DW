@@ -23,6 +23,7 @@ set(
     DW/hook.cc
     DW/fd_manager.cc
     DW/address.cc
+    DW/socket.cc
 )
 
 add_library(DW SHARED ${LIB_SRC})
@@ -74,6 +75,11 @@ add_executable(test_address tests/test_address.cc)
 add_dependencies(test_address DW)
 force_redefine_file_macro_for_sources(test_address)
 target_link_libraries(test_address DW yaml-cpp)
+
+add_executable(test_socket tests/test_socket.cc)
+add_dependencies(test_socket DW)
+force_redefine_file_macro_for_sources(test_socket)
+target_link_libraries(test_socket DW yaml-cpp)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
