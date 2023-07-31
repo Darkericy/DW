@@ -24,6 +24,7 @@ set(
     DW/fd_manager.cc
     DW/address.cc
     DW/socket.cc
+    DW/bytearray.cc
 )
 
 add_library(DW SHARED ${LIB_SRC})
@@ -80,6 +81,11 @@ add_executable(test_socket tests/test_socket.cc)
 add_dependencies(test_socket DW)
 force_redefine_file_macro_for_sources(test_socket)
 target_link_libraries(test_socket DW yaml-cpp)
+
+add_executable(test_bytearray tests/test_bytearray.cc)
+add_dependencies(test_bytearray DW)
+force_redefine_file_macro_for_sources(test_bytearray)
+target_link_libraries(test_bytearray DW yaml-cpp)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

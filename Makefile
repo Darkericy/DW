@@ -262,6 +262,19 @@ test_socket/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/build
 .PHONY : test_socket/fast
 
+#=============================================================================
+# Target rules for targets named test_bytearray
+
+# Build rule for target.
+test_bytearray: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_bytearray
+.PHONY : test_bytearray
+
+# fast build rule for target.
+test_bytearray/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/build
+.PHONY : test_bytearray/fast
+
 DW/address.o: DW/address.cc.o
 .PHONY : DW/address.o
 
@@ -285,6 +298,30 @@ DW/address.s: DW/address.cc.s
 DW/address.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/address.cc.s
 .PHONY : DW/address.cc.s
+
+DW/bytearray.o: DW/bytearray.cc.o
+.PHONY : DW/bytearray.o
+
+# target to build an object file
+DW/bytearray.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/bytearray.cc.o
+.PHONY : DW/bytearray.cc.o
+
+DW/bytearray.i: DW/bytearray.cc.i
+.PHONY : DW/bytearray.i
+
+# target to preprocess a source file
+DW/bytearray.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/bytearray.cc.i
+.PHONY : DW/bytearray.cc.i
+
+DW/bytearray.s: DW/bytearray.cc.s
+.PHONY : DW/bytearray.s
+
+# target to generate assembly for a file
+DW/bytearray.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/bytearray.cc.s
+.PHONY : DW/bytearray.cc.s
 
 DW/config.o: DW/config.cc.o
 .PHONY : DW/config.o
@@ -598,6 +635,30 @@ tests/test_address.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.s
 .PHONY : tests/test_address.cc.s
 
+tests/test_bytearray.o: tests/test_bytearray.cc.o
+.PHONY : tests/test_bytearray.o
+
+# target to build an object file
+tests/test_bytearray.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o
+.PHONY : tests/test_bytearray.cc.o
+
+tests/test_bytearray.i: tests/test_bytearray.cc.i
+.PHONY : tests/test_bytearray.i
+
+# target to preprocess a source file
+tests/test_bytearray.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.i
+.PHONY : tests/test_bytearray.cc.i
+
+tests/test_bytearray.s: tests/test_bytearray.cc.s
+.PHONY : tests/test_bytearray.s
+
+# target to generate assembly for a file
+tests/test_bytearray.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.s
+.PHONY : tests/test_bytearray.cc.s
+
 tests/test_config.o: tests/test_config.cc.o
 .PHONY : tests/test_config.o
 
@@ -824,6 +885,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DW"
 	@echo "... test_address"
+	@echo "... test_bytearray"
 	@echo "... test_config"
 	@echo "... test_fiber"
 	@echo "... test_hook"
@@ -836,6 +898,9 @@ help:
 	@echo "... DW/address.o"
 	@echo "... DW/address.i"
 	@echo "... DW/address.s"
+	@echo "... DW/bytearray.o"
+	@echo "... DW/bytearray.i"
+	@echo "... DW/bytearray.s"
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
 	@echo "... DW/config.s"
@@ -875,6 +940,9 @@ help:
 	@echo "... tests/test_address.o"
 	@echo "... tests/test_address.i"
 	@echo "... tests/test_address.s"
+	@echo "... tests/test_bytearray.o"
+	@echo "... tests/test_bytearray.i"
+	@echo "... tests/test_bytearray.s"
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"

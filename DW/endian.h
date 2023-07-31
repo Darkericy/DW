@@ -1,7 +1,7 @@
 #pragma once
 
-#define SYLAR_LITTLE_ENDIAN 1
-#define SYLAR_BIG_ENDIAN 2
+#define DW_LITTLE_ENDIAN 1
+#define DW_BIG_ENDIAN 2
 
 #include <type_traits>
 #include <byteswap.h>
@@ -37,12 +37,12 @@ namespace DW {
     }
 
     #if BYTE_ORDER == BIG_ENDIAN
-    #define SYLAR_BYTE_ORDER SYLAR_BIG_ENDIAN
+    #define DW_BYTE_ORDER DW_BIG_ENDIAN
     #else
-    #define SYLAR_BYTE_ORDER SYLAR_LITTLE_ENDIAN
+    #define DW_BYTE_ORDER DW_LITTLE_ENDIAN
     #endif
 
-    #if SYLAR_BYTE_ORDER == SYLAR_BIG_ENDIAN
+    #if DW_BYTE_ORDER == DW_BIG_ENDIAN
 
     /**
      * @brief 只在小端机器上执行byteswap, 在大端机器上什么都不做
