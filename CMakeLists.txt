@@ -28,6 +28,8 @@ set(
     DW/http/http.cc
     DW/http/http_parser.cc
     DW/tcp_server.cc
+    DW/stream.cc
+    DW/streams/socket_stream.cc
 )
 
 set(LIBS

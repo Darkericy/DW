@@ -16,6 +16,7 @@
 * 2023.7.31 序列化模块完成
 * 2023.8.1 http模块完成，http_parser模块完成
 * 2023.8.1 tcpserver完成，echo_server完成
+* 2023.8.1 stream,socket_stream封装完成
 ***
 ### 日志模块 ###
 日志被细分为了LoggerManager, Logger, LogAppender, LogFormater等大类，每个类各司其职。大佬视频中的各个类耦合严重，我对结构做了些许修改，在我的版本里耦合没有那么严重了。同时对于调用日志的宏定义我也修改为了模板inline函数（为了方便，在接下来的内容中我依然描述为宏定义），这是为了响应effective c++中建议，虽然从调用上来看要复杂了一点，但是更可靠了。

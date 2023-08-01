@@ -674,6 +674,54 @@ DW/socket.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/socket.cc.s
 .PHONY : DW/socket.cc.s
 
+DW/stream.o: DW/stream.cc.o
+.PHONY : DW/stream.o
+
+# target to build an object file
+DW/stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/stream.cc.o
+.PHONY : DW/stream.cc.o
+
+DW/stream.i: DW/stream.cc.i
+.PHONY : DW/stream.i
+
+# target to preprocess a source file
+DW/stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/stream.cc.i
+.PHONY : DW/stream.cc.i
+
+DW/stream.s: DW/stream.cc.s
+.PHONY : DW/stream.s
+
+# target to generate assembly for a file
+DW/stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/stream.cc.s
+.PHONY : DW/stream.cc.s
+
+DW/streams/socket_stream.o: DW/streams/socket_stream.cc.o
+.PHONY : DW/streams/socket_stream.o
+
+# target to build an object file
+DW/streams/socket_stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/streams/socket_stream.cc.o
+.PHONY : DW/streams/socket_stream.cc.o
+
+DW/streams/socket_stream.i: DW/streams/socket_stream.cc.i
+.PHONY : DW/streams/socket_stream.i
+
+# target to preprocess a source file
+DW/streams/socket_stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/streams/socket_stream.cc.i
+.PHONY : DW/streams/socket_stream.cc.i
+
+DW/streams/socket_stream.s: DW/streams/socket_stream.cc.s
+.PHONY : DW/streams/socket_stream.s
+
+# target to generate assembly for a file
+DW/streams/socket_stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/streams/socket_stream.cc.s
+.PHONY : DW/streams/socket_stream.cc.s
+
 DW/tcp_server.o: DW/tcp_server.cc.o
 .PHONY : DW/tcp_server.o
 
@@ -1174,6 +1222,12 @@ help:
 	@echo "... DW/socket.o"
 	@echo "... DW/socket.i"
 	@echo "... DW/socket.s"
+	@echo "... DW/stream.o"
+	@echo "... DW/stream.i"
+	@echo "... DW/stream.s"
+	@echo "... DW/streams/socket_stream.o"
+	@echo "... DW/streams/socket_stream.i"
+	@echo "... DW/streams/socket_stream.s"
 	@echo "... DW/tcp_server.o"
 	@echo "... DW/tcp_server.i"
 	@echo "... DW/tcp_server.s"
