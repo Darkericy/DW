@@ -25,12 +25,25 @@ set(
     DW/address.cc
     DW/socket.cc
     DW/bytearray.cc
+    DW/http/http.cc
+    DW/http/http_parser.cc
 )
+
+set(LIBS
+        DW
+        yaml-cpp
+        )
+
+ragelmaker(DW/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/DW/http)
+ragelmaker(DW/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/DW/http)
 
 add_library(DW SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(DW)
 # add_library(DW_static STATIC ${LIB_SRC})
 # SET_TARGET_PROPERTIES (DW_static PROPERTIES OUTPUT_NAME "DW")
+
+DW_add_executable(test_http "tests/test_http.cc" DW "${LIBS}")
+DW_add_executable(test_parser "tests/test_parser.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)

@@ -18,3 +18,5 @@
 #include "endian.h"
 #include "socket.h"
 #include "bytearray.h"
+#include "http/http.h"
+#include "http/http_parser.h"

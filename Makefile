@@ -133,6 +133,32 @@ DW/fast:
 .PHONY : DW/fast
 
 #=============================================================================
+# Target rules for targets named test_http
+
+# Build rule for target.
+test_http: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http
+.PHONY : test_http
+
+# fast build rule for target.
+test_http/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/build
+.PHONY : test_http/fast
+
+#=============================================================================
+# Target rules for targets named test_parser
+
+# Build rule for target.
+test_parser: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_parser
+.PHONY : test_parser
+
+# fast build rule for target.
+test_parser/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/build
+.PHONY : test_parser/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -418,6 +444,102 @@ DW/hook.s: DW/hook.cc.s
 DW/hook.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/hook.cc.s
 .PHONY : DW/hook.cc.s
+
+DW/http/http.o: DW/http/http.cc.o
+.PHONY : DW/http/http.o
+
+# target to build an object file
+DW/http/http.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http.cc.o
+.PHONY : DW/http/http.cc.o
+
+DW/http/http.i: DW/http/http.cc.i
+.PHONY : DW/http/http.i
+
+# target to preprocess a source file
+DW/http/http.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http.cc.i
+.PHONY : DW/http/http.cc.i
+
+DW/http/http.s: DW/http/http.cc.s
+.PHONY : DW/http/http.s
+
+# target to generate assembly for a file
+DW/http/http.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http.cc.s
+.PHONY : DW/http/http.cc.s
+
+DW/http/http11_parser.rl.o: DW/http/http11_parser.rl.cc.o
+.PHONY : DW/http/http11_parser.rl.o
+
+# target to build an object file
+DW/http/http11_parser.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http11_parser.rl.cc.o
+.PHONY : DW/http/http11_parser.rl.cc.o
+
+DW/http/http11_parser.rl.i: DW/http/http11_parser.rl.cc.i
+.PHONY : DW/http/http11_parser.rl.i
+
+# target to preprocess a source file
+DW/http/http11_parser.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http11_parser.rl.cc.i
+.PHONY : DW/http/http11_parser.rl.cc.i
+
+DW/http/http11_parser.rl.s: DW/http/http11_parser.rl.cc.s
+.PHONY : DW/http/http11_parser.rl.s
+
+# target to generate assembly for a file
+DW/http/http11_parser.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http11_parser.rl.cc.s
+.PHONY : DW/http/http11_parser.rl.cc.s
+
+DW/http/http_parser.o: DW/http/http_parser.cc.o
+.PHONY : DW/http/http_parser.o
+
+# target to build an object file
+DW/http/http_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_parser.cc.o
+.PHONY : DW/http/http_parser.cc.o
+
+DW/http/http_parser.i: DW/http/http_parser.cc.i
+.PHONY : DW/http/http_parser.i
+
+# target to preprocess a source file
+DW/http/http_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_parser.cc.i
+.PHONY : DW/http/http_parser.cc.i
+
+DW/http/http_parser.s: DW/http/http_parser.cc.s
+.PHONY : DW/http/http_parser.s
+
+# target to generate assembly for a file
+DW/http/http_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_parser.cc.s
+.PHONY : DW/http/http_parser.cc.s
+
+DW/http/httpclient_parser.rl.o: DW/http/httpclient_parser.rl.cc.o
+.PHONY : DW/http/httpclient_parser.rl.o
+
+# target to build an object file
+DW/http/httpclient_parser.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/httpclient_parser.rl.cc.o
+.PHONY : DW/http/httpclient_parser.rl.cc.o
+
+DW/http/httpclient_parser.rl.i: DW/http/httpclient_parser.rl.cc.i
+.PHONY : DW/http/httpclient_parser.rl.i
+
+# target to preprocess a source file
+DW/http/httpclient_parser.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/httpclient_parser.rl.cc.i
+.PHONY : DW/http/httpclient_parser.rl.cc.i
+
+DW/http/httpclient_parser.rl.s: DW/http/httpclient_parser.rl.cc.s
+.PHONY : DW/http/httpclient_parser.rl.s
+
+# target to generate assembly for a file
+DW/http/httpclient_parser.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/httpclient_parser.rl.cc.s
+.PHONY : DW/http/httpclient_parser.rl.cc.s
 
 DW/iomanager.o: DW/iomanager.cc.o
 .PHONY : DW/iomanager.o
@@ -731,6 +853,30 @@ tests/test_hook.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.s
 .PHONY : tests/test_hook.cc.s
 
+tests/test_http.o: tests/test_http.cc.o
+.PHONY : tests/test_http.o
+
+# target to build an object file
+tests/test_http.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/tests/test_http.cc.o
+.PHONY : tests/test_http.cc.o
+
+tests/test_http.i: tests/test_http.cc.i
+.PHONY : tests/test_http.i
+
+# target to preprocess a source file
+tests/test_http.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/tests/test_http.cc.i
+.PHONY : tests/test_http.cc.i
+
+tests/test_http.s: tests/test_http.cc.s
+.PHONY : tests/test_http.s
+
+# target to generate assembly for a file
+tests/test_http.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/tests/test_http.cc.s
+.PHONY : tests/test_http.cc.s
+
 tests/test_iomanager.o: tests/test_iomanager.cc.o
 .PHONY : tests/test_iomanager.o
 
@@ -754,6 +900,30 @@ tests/test_iomanager.s: tests/test_iomanager.cc.s
 tests/test_iomanager.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.s
 .PHONY : tests/test_iomanager.cc.s
+
+tests/test_parser.o: tests/test_parser.cc.o
+.PHONY : tests/test_parser.o
+
+# target to build an object file
+tests/test_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.cc.o
+.PHONY : tests/test_parser.cc.o
+
+tests/test_parser.i: tests/test_parser.cc.i
+.PHONY : tests/test_parser.i
+
+# target to preprocess a source file
+tests/test_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.cc.i
+.PHONY : tests/test_parser.cc.i
+
+tests/test_parser.s: tests/test_parser.cc.s
+.PHONY : tests/test_parser.s
+
+# target to generate assembly for a file
+tests/test_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.cc.s
+.PHONY : tests/test_parser.cc.s
 
 tests/test_scheduler.o: tests/test_scheduler.cc.o
 .PHONY : tests/test_scheduler.o
@@ -889,7 +1059,9 @@ help:
 	@echo "... test_config"
 	@echo "... test_fiber"
 	@echo "... test_hook"
+	@echo "... test_http"
 	@echo "... test_iomanager"
+	@echo "... test_parser"
 	@echo "... test_scheduler"
 	@echo "... test_socket"
 	@echo "... test_thread"
@@ -913,6 +1085,18 @@ help:
 	@echo "... DW/hook.o"
 	@echo "... DW/hook.i"
 	@echo "... DW/hook.s"
+	@echo "... DW/http/http.o"
+	@echo "... DW/http/http.i"
+	@echo "... DW/http/http.s"
+	@echo "... DW/http/http11_parser.rl.o"
+	@echo "... DW/http/http11_parser.rl.i"
+	@echo "... DW/http/http11_parser.rl.s"
+	@echo "... DW/http/http_parser.o"
+	@echo "... DW/http/http_parser.i"
+	@echo "... DW/http/http_parser.s"
+	@echo "... DW/http/httpclient_parser.rl.o"
+	@echo "... DW/http/httpclient_parser.rl.i"
+	@echo "... DW/http/httpclient_parser.rl.s"
 	@echo "... DW/iomanager.o"
 	@echo "... DW/iomanager.i"
 	@echo "... DW/iomanager.s"
@@ -952,9 +1136,15 @@ help:
 	@echo "... tests/test_hook.o"
 	@echo "... tests/test_hook.i"
 	@echo "... tests/test_hook.s"
+	@echo "... tests/test_http.o"
+	@echo "... tests/test_http.i"
+	@echo "... tests/test_http.s"
 	@echo "... tests/test_iomanager.o"
 	@echo "... tests/test_iomanager.i"
 	@echo "... tests/test_iomanager.s"
+	@echo "... tests/test_parser.o"
+	@echo "... tests/test_parser.i"
+	@echo "... tests/test_parser.s"
 	@echo "... tests/test_scheduler.o"
 	@echo "... tests/test_scheduler.i"
 	@echo "... tests/test_scheduler.s"
