@@ -27,6 +27,7 @@ set(
     DW/bytearray.cc
     DW/http/http.cc
     DW/http/http_parser.cc
+    DW/tcp_server.cc
 )
 
 set(LIBS
@@ -44,6 +45,7 @@ force_redefine_file_macro_for_sources(DW)
 
 DW_add_executable(test_http "tests/test_http.cc" DW "${LIBS}")
 DW_add_executable(test_parser "tests/test_parser.cc" DW "${LIBS}")
+DW_add_executable(echo_server "example/echo_server.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)

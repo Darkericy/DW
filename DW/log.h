@@ -344,7 +344,7 @@ namespace DW{
     }
 
     template<typename ... Args>
-    inline std::string TOSTRING(const Args ... args){
+    inline std::string TOSTRING(const Args& ... args){
         std::ostringstream os;
         ((os << args), ...);
         return os.str();

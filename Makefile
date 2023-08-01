@@ -159,6 +159,19 @@ test_parser/fast:
 .PHONY : test_parser/fast
 
 #=============================================================================
+# Target rules for targets named echo_server
+
+# Build rule for target.
+echo_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 echo_server
+.PHONY : echo_server
+
+# fast build rule for target.
+echo_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/build
+.PHONY : echo_server/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -661,6 +674,30 @@ DW/socket.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/socket.cc.s
 .PHONY : DW/socket.cc.s
 
+DW/tcp_server.o: DW/tcp_server.cc.o
+.PHONY : DW/tcp_server.o
+
+# target to build an object file
+DW/tcp_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/tcp_server.cc.o
+.PHONY : DW/tcp_server.cc.o
+
+DW/tcp_server.i: DW/tcp_server.cc.i
+.PHONY : DW/tcp_server.i
+
+# target to preprocess a source file
+DW/tcp_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/tcp_server.cc.i
+.PHONY : DW/tcp_server.cc.i
+
+DW/tcp_server.s: DW/tcp_server.cc.s
+.PHONY : DW/tcp_server.s
+
+# target to generate assembly for a file
+DW/tcp_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/tcp_server.cc.s
+.PHONY : DW/tcp_server.cc.s
+
 DW/thread.o: DW/thread.cc.o
 .PHONY : DW/thread.o
 
@@ -732,6 +769,30 @@ DW/util.s: DW/util.cc.s
 DW/util.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/util.cc.s
 .PHONY : DW/util.cc.s
+
+example/echo_server.o: example/echo_server.cc.o
+.PHONY : example/echo_server.o
+
+# target to build an object file
+example/echo_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/example/echo_server.cc.o
+.PHONY : example/echo_server.cc.o
+
+example/echo_server.i: example/echo_server.cc.i
+.PHONY : example/echo_server.i
+
+# target to preprocess a source file
+example/echo_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/example/echo_server.cc.i
+.PHONY : example/echo_server.cc.i
+
+example/echo_server.s: example/echo_server.cc.s
+.PHONY : example/echo_server.s
+
+# target to generate assembly for a file
+example/echo_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/example/echo_server.cc.s
+.PHONY : example/echo_server.cc.s
 
 tests/test_address.o: tests/test_address.cc.o
 .PHONY : tests/test_address.o
@@ -1054,6 +1115,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DW"
+	@echo "... echo_server"
 	@echo "... test_address"
 	@echo "... test_bytearray"
 	@echo "... test_config"
@@ -1112,6 +1174,9 @@ help:
 	@echo "... DW/socket.o"
 	@echo "... DW/socket.i"
 	@echo "... DW/socket.s"
+	@echo "... DW/tcp_server.o"
+	@echo "... DW/tcp_server.i"
+	@echo "... DW/tcp_server.s"
 	@echo "... DW/thread.o"
 	@echo "... DW/thread.i"
 	@echo "... DW/thread.s"
@@ -1121,6 +1186,9 @@ help:
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
+	@echo "... example/echo_server.o"
+	@echo "... example/echo_server.i"
+	@echo "... example/echo_server.s"
 	@echo "... tests/test_address.o"
 	@echo "... tests/test_address.i"
 	@echo "... tests/test_address.s"
