@@ -33,6 +33,7 @@ set(
     DW/http/http_session.cc
     DW/http/servlet.cc
     DW/http/http_server.cc
+    DW/http/http_connection.cc
 )
 
 set(LIBS
@@ -42,6 +43,7 @@ set(LIBS
 
 ragelmaker(DW/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/DW/http)
 ragelmaker(DW/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/DW/http)
+ragelmaker(DW/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/DW)
 
 add_library(DW SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(DW)
@@ -52,6 +54,7 @@ DW_add_executable(test_http "tests/test_http.cc" DW "${LIBS}")
 DW_add_executable(test_parser "tests/test_parser.cc" DW "${LIBS}")
 DW_add_executable(echo_server "example/echo_server.cc" DW "${LIBS}")
 DW_add_executable(test_http_server "tests/test_http_server.cc" DW "${LIBS}")
+DW_add_executable(test_http_connection "tests/test_http_connection.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)

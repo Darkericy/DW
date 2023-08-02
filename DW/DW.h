@@ -21,3 +21,5 @@
 #include "http/http.h"
 #include "http/http_parser.h"
 #include "tcp_server.h"
+#include "http/http_connection.h"
+#include "http/http_parser.h"

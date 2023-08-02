@@ -554,4 +554,9 @@ namespace DW {
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, const Address& addr) {
+        return addr.insert(os);
+    }
+
+
 }

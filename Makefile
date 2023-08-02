@@ -185,6 +185,19 @@ test_http_server/fast:
 .PHONY : test_http_server/fast
 
 #=============================================================================
+# Target rules for targets named test_http_connection
+
+# Build rule for target.
+test_http_connection: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_connection
+.PHONY : test_http_connection
+
+# fast build rule for target.
+test_http_connection/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/build
+.PHONY : test_http_connection/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -518,6 +531,30 @@ DW/http/http11_parser.rl.s: DW/http/http11_parser.rl.cc.s
 DW/http/http11_parser.rl.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http11_parser.rl.cc.s
 .PHONY : DW/http/http11_parser.rl.cc.s
+
+DW/http/http_connection.o: DW/http/http_connection.cc.o
+.PHONY : DW/http/http_connection.o
+
+# target to build an object file
+DW/http/http_connection.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_connection.cc.o
+.PHONY : DW/http/http_connection.cc.o
+
+DW/http/http_connection.i: DW/http/http_connection.cc.i
+.PHONY : DW/http/http_connection.i
+
+# target to preprocess a source file
+DW/http/http_connection.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_connection.cc.i
+.PHONY : DW/http/http_connection.cc.i
+
+DW/http/http_connection.s: DW/http/http_connection.cc.s
+.PHONY : DW/http/http_connection.s
+
+# target to generate assembly for a file
+DW/http/http_connection.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_connection.cc.s
+.PHONY : DW/http/http_connection.cc.s
 
 DW/http/http_parser.o: DW/http/http_parser.cc.o
 .PHONY : DW/http/http_parser.o
@@ -879,6 +916,30 @@ DW/timer.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/timer.cc.s
 .PHONY : DW/timer.cc.s
 
+DW/uri.rl.o: DW/uri.rl.cc.o
+.PHONY : DW/uri.rl.o
+
+# target to build an object file
+DW/uri.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/uri.rl.cc.o
+.PHONY : DW/uri.rl.cc.o
+
+DW/uri.rl.i: DW/uri.rl.cc.i
+.PHONY : DW/uri.rl.i
+
+# target to preprocess a source file
+DW/uri.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/uri.rl.cc.i
+.PHONY : DW/uri.rl.cc.i
+
+DW/uri.rl.s: DW/uri.rl.cc.s
+.PHONY : DW/uri.rl.s
+
+# target to generate assembly for a file
+DW/uri.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/uri.rl.cc.s
+.PHONY : DW/uri.rl.cc.s
+
 DW/util.o: DW/util.cc.o
 .PHONY : DW/util.o
 
@@ -1070,6 +1131,30 @@ tests/test_http.s: tests/test_http.cc.s
 tests/test_http.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/tests/test_http.cc.s
 .PHONY : tests/test_http.cc.s
+
+tests/test_http_connection.o: tests/test_http_connection.cc.o
+.PHONY : tests/test_http_connection.o
+
+# target to build an object file
+tests/test_http_connection.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.o
+.PHONY : tests/test_http_connection.cc.o
+
+tests/test_http_connection.i: tests/test_http_connection.cc.i
+.PHONY : tests/test_http_connection.i
+
+# target to preprocess a source file
+tests/test_http_connection.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.i
+.PHONY : tests/test_http_connection.cc.i
+
+tests/test_http_connection.s: tests/test_http_connection.cc.s
+.PHONY : tests/test_http_connection.s
+
+# target to generate assembly for a file
+tests/test_http_connection.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.s
+.PHONY : tests/test_http_connection.cc.s
 
 tests/test_http_server.o: tests/test_http_server.cc.o
 .PHONY : tests/test_http_server.o
@@ -1279,6 +1364,7 @@ help:
 	@echo "... test_fiber"
 	@echo "... test_hook"
 	@echo "... test_http"
+	@echo "... test_http_connection"
 	@echo "... test_http_server"
 	@echo "... test_iomanager"
 	@echo "... test_parser"
@@ -1311,6 +1397,9 @@ help:
 	@echo "... DW/http/http11_parser.rl.o"
 	@echo "... DW/http/http11_parser.rl.i"
 	@echo "... DW/http/http11_parser.rl.s"
+	@echo "... DW/http/http_connection.o"
+	@echo "... DW/http/http_connection.i"
+	@echo "... DW/http/http_connection.s"
 	@echo "... DW/http/http_parser.o"
 	@echo "... DW/http/http_parser.i"
 	@echo "... DW/http/http_parser.s"
@@ -1356,6 +1445,9 @@ help:
 	@echo "... DW/timer.o"
 	@echo "... DW/timer.i"
 	@echo "... DW/timer.s"
+	@echo "... DW/uri.rl.o"
+	@echo "... DW/uri.rl.i"
+	@echo "... DW/uri.rl.s"
 	@echo "... DW/util.o"
 	@echo "... DW/util.i"
 	@echo "... DW/util.s"
@@ -1380,6 +1472,9 @@ help:
 	@echo "... tests/test_http.o"
 	@echo "... tests/test_http.i"
 	@echo "... tests/test_http.s"
+	@echo "... tests/test_http_connection.o"
+	@echo "... tests/test_http_connection.i"
+	@echo "... tests/test_http_connection.s"
 	@echo "... tests/test_http_server.o"
 	@echo "... tests/test_http_server.i"
 	@echo "... tests/test_http_server.s"
