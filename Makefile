@@ -172,6 +172,19 @@ echo_server/fast:
 .PHONY : echo_server/fast
 
 #=============================================================================
+# Target rules for targets named test_http_server
+
+# Build rule for target.
+test_http_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_server
+.PHONY : test_http_server
+
+# fast build rule for target.
+test_http_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/build
+.PHONY : test_http_server/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -530,6 +543,30 @@ DW/http/http_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_parser.cc.s
 .PHONY : DW/http/http_parser.cc.s
 
+DW/http/http_server.o: DW/http/http_server.cc.o
+.PHONY : DW/http/http_server.o
+
+# target to build an object file
+DW/http/http_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_server.cc.o
+.PHONY : DW/http/http_server.cc.o
+
+DW/http/http_server.i: DW/http/http_server.cc.i
+.PHONY : DW/http/http_server.i
+
+# target to preprocess a source file
+DW/http/http_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_server.cc.i
+.PHONY : DW/http/http_server.cc.i
+
+DW/http/http_server.s: DW/http/http_server.cc.s
+.PHONY : DW/http/http_server.s
+
+# target to generate assembly for a file
+DW/http/http_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_server.cc.s
+.PHONY : DW/http/http_server.cc.s
+
 DW/http/http_session.o: DW/http/http_session.cc.o
 .PHONY : DW/http/http_session.o
 
@@ -577,6 +614,30 @@ DW/http/httpclient_parser.rl.s: DW/http/httpclient_parser.rl.cc.s
 DW/http/httpclient_parser.rl.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/httpclient_parser.rl.cc.s
 .PHONY : DW/http/httpclient_parser.rl.cc.s
+
+DW/http/servlet.o: DW/http/servlet.cc.o
+.PHONY : DW/http/servlet.o
+
+# target to build an object file
+DW/http/servlet.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/servlet.cc.o
+.PHONY : DW/http/servlet.cc.o
+
+DW/http/servlet.i: DW/http/servlet.cc.i
+.PHONY : DW/http/servlet.i
+
+# target to preprocess a source file
+DW/http/servlet.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/servlet.cc.i
+.PHONY : DW/http/servlet.cc.i
+
+DW/http/servlet.s: DW/http/servlet.cc.s
+.PHONY : DW/http/servlet.s
+
+# target to generate assembly for a file
+DW/http/servlet.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/servlet.cc.s
+.PHONY : DW/http/servlet.cc.s
 
 DW/iomanager.o: DW/iomanager.cc.o
 .PHONY : DW/iomanager.o
@@ -1010,6 +1071,30 @@ tests/test_http.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/tests/test_http.cc.s
 .PHONY : tests/test_http.cc.s
 
+tests/test_http_server.o: tests/test_http_server.cc.o
+.PHONY : tests/test_http_server.o
+
+# target to build an object file
+tests/test_http_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/tests/test_http_server.cc.o
+.PHONY : tests/test_http_server.cc.o
+
+tests/test_http_server.i: tests/test_http_server.cc.i
+.PHONY : tests/test_http_server.i
+
+# target to preprocess a source file
+tests/test_http_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/tests/test_http_server.cc.i
+.PHONY : tests/test_http_server.cc.i
+
+tests/test_http_server.s: tests/test_http_server.cc.s
+.PHONY : tests/test_http_server.s
+
+# target to generate assembly for a file
+tests/test_http_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/tests/test_http_server.cc.s
+.PHONY : tests/test_http_server.cc.s
+
 tests/test_iomanager.o: tests/test_iomanager.cc.o
 .PHONY : tests/test_iomanager.o
 
@@ -1194,6 +1279,7 @@ help:
 	@echo "... test_fiber"
 	@echo "... test_hook"
 	@echo "... test_http"
+	@echo "... test_http_server"
 	@echo "... test_iomanager"
 	@echo "... test_parser"
 	@echo "... test_scheduler"
@@ -1228,12 +1314,18 @@ help:
 	@echo "... DW/http/http_parser.o"
 	@echo "... DW/http/http_parser.i"
 	@echo "... DW/http/http_parser.s"
+	@echo "... DW/http/http_server.o"
+	@echo "... DW/http/http_server.i"
+	@echo "... DW/http/http_server.s"
 	@echo "... DW/http/http_session.o"
 	@echo "... DW/http/http_session.i"
 	@echo "... DW/http/http_session.s"
 	@echo "... DW/http/httpclient_parser.rl.o"
 	@echo "... DW/http/httpclient_parser.rl.i"
 	@echo "... DW/http/httpclient_parser.rl.s"
+	@echo "... DW/http/servlet.o"
+	@echo "... DW/http/servlet.i"
+	@echo "... DW/http/servlet.s"
 	@echo "... DW/iomanager.o"
 	@echo "... DW/iomanager.i"
 	@echo "... DW/iomanager.s"
@@ -1288,6 +1380,9 @@ help:
 	@echo "... tests/test_http.o"
 	@echo "... tests/test_http.i"
 	@echo "... tests/test_http.s"
+	@echo "... tests/test_http_server.o"
+	@echo "... tests/test_http_server.i"
+	@echo "... tests/test_http_server.s"
 	@echo "... tests/test_iomanager.o"
 	@echo "... tests/test_iomanager.i"
 	@echo "... tests/test_iomanager.s"

@@ -31,6 +31,8 @@ set(
     DW/stream.cc
     DW/streams/socket_stream.cc
     DW/http/http_session.cc
+    DW/http/servlet.cc
+    DW/http/http_server.cc
 )
 
 set(LIBS
@@ -49,6 +51,7 @@ force_redefine_file_macro_for_sources(DW)
 DW_add_executable(test_http "tests/test_http.cc" DW "${LIBS}")
 DW_add_executable(test_parser "tests/test_parser.cc" DW "${LIBS}")
 DW_add_executable(echo_server "example/echo_server.cc" DW "${LIBS}")
+DW_add_executable(test_http_server "tests/test_http_server.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)
