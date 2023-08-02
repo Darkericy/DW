@@ -488,6 +488,7 @@ extern "C" {
         }
         if(level == SOL_SOCKET) {
             if(optname == SO_RCVTIMEO || optname == SO_SNDTIMEO) {
+                //拿到的sockfd要管理起来
                 DW::FdCtx::ptr ctx = DW::FdMgr::GetInstance()->get(sockfd);
                 if(ctx) {
                     const timeval* v = (const timeval*)optval;

@@ -30,6 +30,7 @@ set(
     DW/tcp_server.cc
     DW/stream.cc
     DW/streams/socket_stream.cc
+    DW/http/http_session.cc
 )
 
 set(LIBS

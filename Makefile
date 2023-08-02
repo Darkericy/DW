@@ -530,6 +530,30 @@ DW/http/http_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_parser.cc.s
 .PHONY : DW/http/http_parser.cc.s
 
+DW/http/http_session.o: DW/http/http_session.cc.o
+.PHONY : DW/http/http_session.o
+
+# target to build an object file
+DW/http/http_session.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_session.cc.o
+.PHONY : DW/http/http_session.cc.o
+
+DW/http/http_session.i: DW/http/http_session.cc.i
+.PHONY : DW/http/http_session.i
+
+# target to preprocess a source file
+DW/http/http_session.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_session.cc.i
+.PHONY : DW/http/http_session.cc.i
+
+DW/http/http_session.s: DW/http/http_session.cc.s
+.PHONY : DW/http/http_session.s
+
+# target to generate assembly for a file
+DW/http/http_session.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/http/http_session.cc.s
+.PHONY : DW/http/http_session.cc.s
+
 DW/http/httpclient_parser.rl.o: DW/http/httpclient_parser.rl.cc.o
 .PHONY : DW/http/httpclient_parser.rl.o
 
@@ -1204,6 +1228,9 @@ help:
 	@echo "... DW/http/http_parser.o"
 	@echo "... DW/http/http_parser.i"
 	@echo "... DW/http/http_parser.s"
+	@echo "... DW/http/http_session.o"
+	@echo "... DW/http/http_session.i"
+	@echo "... DW/http/http_session.s"
 	@echo "... DW/http/httpclient_parser.rl.o"
 	@echo "... DW/http/httpclient_parser.rl.i"
 	@echo "... DW/http/httpclient_parser.rl.s"

@@ -285,7 +285,7 @@ namespace DW {
         if(!hasIdleThreads()) {
             return;
         }
-        //通过一次写事件唤醒以下epoll
+        //通过一次写事件唤醒一下epoll
         int rt = write(m_tickleFds[1], "T", 1);
         DW_ASSERT(rt == 1);
     }
@@ -341,6 +341,7 @@ namespace DW {
 
             for(int i = 0; i < rt; ++i) {
                 epoll_event& event = events[i];
+                //因tickle而唤醒
                 if(event.data.fd == m_tickleFds[0]) {
                     uint8_t dummy[256];
                     while(read(m_tickleFds[0], dummy, sizeof(dummy)) > 0);
@@ -400,7 +401,9 @@ namespace DW {
             // cur.reset();
 
             // raw_ptr->swapOut();
+            // DW_LOG_INFO(g_logger, __FILE__, __LINE__, "back to main");
             Fiber::YieldToHold();
+            // DW_LOG_INFO(g_logger, __FILE__, __LINE__, "back to idle");
         }
     }
 

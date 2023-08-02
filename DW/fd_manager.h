@@ -66,7 +66,7 @@ namespace DW {
     //文件句柄管理类
     class FdManager {
     public:
-        typedef RWMutex RWMutexType;
+        using RWMutexType = RWMutex;
         FdManager();
 
         /**

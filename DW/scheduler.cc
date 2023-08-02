@@ -8,7 +8,7 @@ namespace DW {
 
     static DW::Logger::ptr g_logger = DW_LOG_NAME("system");
 
-    static thread_local Scheduler* t_scheduler = nullptr;
+    static thread_local Scheduler* t_scheduler = nullptr;       //当前调度器
     static thread_local Fiber* t_scheduler_fiber = nullptr;     //当前线程的主携程
 
     Scheduler::Scheduler(size_t threads, const std::string& name)
@@ -71,11 +71,11 @@ namespace DW {
         }
         //lock.unlock();
 
-        if(m_rootFiber) {
-           m_rootFiber->swapIn();
-           //m_rootFiber->call();
-           DW_LOG_INFO(g_logger, __FILE__, __LINE__, TOSTRING("swapOut ", m_rootFiber->getState()));
-        }
+        // if(m_rootFiber) {
+        //    m_rootFiber->swapIn();
+        //    //m_rootFiber->call();
+        //    DW_LOG_INFO(g_logger, __FILE__, __LINE__, TOSTRING("swapOut ", m_rootFiber->getState()));
+        // }
     }
 
     void Scheduler::stop() {
@@ -150,6 +150,7 @@ namespace DW {
         set_hook_enable(true);
         setThis();
         if(static_cast<int>(DW::GetThreadId()) != m_rootThread) {
+            //需要创建一个主携程
             t_scheduler_fiber = Fiber::GetThis().get();
         }
 
@@ -165,13 +166,14 @@ namespace DW {
                 MutexType::Lock lock(m_mutex);
                 auto it = m_fibers.begin();
                 while(it != m_fibers.end()) {
+                    //需要其他线程来处理
                     if(it->thread != -1 && it->thread != static_cast<int>(DW::GetThreadId())) {
                         ++it;
                         tickle_me = true;
                         continue;
                     }
 
-                    DW_ASSERT(it->fiber || it->cb);
+                    DW_ASSERT(it->fiber || it->cb); //断言判断当前调用的合法性
                     if(it->fiber && it->fiber->getState() == Fiber::EXEC) {
                         ++it;
                         continue;
@@ -192,6 +194,7 @@ namespace DW {
 
             if(ft.fiber && (ft.fiber->getState() != Fiber::TERM
                             && ft.fiber->getState() != Fiber::EXCEPT)) {
+                DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("get mission id= ", GetThreadId()));
                 ft.fiber->swapIn();
                 --m_activeThreadCount;
 
@@ -214,13 +217,16 @@ namespace DW {
                 cb_fiber->swapIn();
                 --m_activeThreadCount;
                 if(cb_fiber->getState() == Fiber::READY) {
+                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "ready");
                     schedule(cb_fiber);
                     cb_fiber.reset();
                 } else if(cb_fiber->getState() == Fiber::EXCEPT
                         || cb_fiber->getState() == Fiber::TERM) {
-                    cb_fiber->reset(nullptr);
+                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "nullptr");
+                    cb_fiber->reset(nullptr);   //释放潜在资源
                 } else {//if(cb_fiber->getState() != Fiber::TERM) {
                     //cb_fiber->m_state = Fiber::HOLD;
+                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "other");
                     cb_fiber.reset();
                 }
             } else {

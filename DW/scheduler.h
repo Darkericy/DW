@@ -32,6 +32,7 @@ namespace DW {
         //这里是要写内存所以要加锁
         template<class FiberOrCb>
         void schedule(FiberOrCb fc, int thread = -1) {
+            // std::cout << "schedule" << std::endl;
             bool need_tickle = false;
             {
                 MutexType::Lock lock(m_mutex);
@@ -43,6 +44,7 @@ namespace DW {
             }
         }
 
+        //这个函数将会在最上层执行，所以能够唤醒
         template<class InputIterator>
         void schedule(InputIterator begin, InputIterator end) {
             bool need_tickle = false;
@@ -58,6 +60,7 @@ namespace DW {
             }
         }
     protected:
+        //将线程从执行idle中唤醒
         virtual void tickle();
 
         void run();
@@ -72,6 +75,7 @@ namespace DW {
     private:
         template<class FiberOrCb>
         bool scheduleNoLock(FiberOrCb fc, int thread) {
+            //如果是空的，说明都去执行idle了
             bool need_tickle = m_fibers.empty();
             FiberAndThread ft(fc, thread);
             if(ft.fiber || ft.cb) {
