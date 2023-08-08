@@ -7,7 +7,6 @@
 #include <sstream>
 #include <list>
 #include <vector>
-#include <unordered_map>
 #include <unordered_set>
 #include <set>
 #include <map>
@@ -382,6 +381,7 @@ namespace DW{
         static void LoadFromYaml(const YAML::Node& root);
         static ConfigVarBase::ptr LookupBase(const std::string& name);
         static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+        static void LoadFromConfDir(const std::string& path, bool force = false);
     private:
 
         static ConfigVarMap& GetDatas() {
@@ -393,5 +393,7 @@ namespace DW{
             static RWMutexType s_mutex;
             return s_mutex;
         }
+
     };
+
 }

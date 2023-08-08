@@ -1,7 +1,7 @@
-#include "../DW/config.h"
-#include "../DW/log.h"
+#include "../DW/DW.h"
 #include <yaml-cpp/yaml.h>
 
+#if 0
 DW::ConfigVar<int>::ptr g_int_value_config =
     DW::Config::Lookup("system.port", (int)8080, "system port");
 
@@ -140,12 +140,24 @@ void test_log(){
     DW::DW_LOG_INFO(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING("hello system"));
 }
 
-int main(){
+#endif
+
+void test_loadconf() {
+    DW::Config::LoadFromConfDir("config");
+}
+
+int main(int argc, char* argv[]){
     //test_yaml();
     //test_load();
     //test_cb();
 
     //test_log();
+    DW::EnvMgr::GetInstance()->init(argc, argv);
+    test_loadconf();
+    std::cout << " ==== " << std::endl;
+    sleep(5);
+    test_loadconf();
+
 
     DW::Config::Visit([](DW::ConfigVarBase::ptr var) {
         DW::DW_LOG_INFO(DW::DW_LOG_ROOT(), __FILE__, __LINE__, DW::TOSTRING(

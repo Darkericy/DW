@@ -1,2 +1,1 @@
-2023-07-18 09:37:23	6744	UNKNOW	0	[INFO]	[system]	tests/test_config.cc:136	hello system
-2023-07-18 09:37:23 - hello system
+2023-08-08 15:33:25	15314	UNKNOW	0	[INFO]	[system]	DW/config.cc:91	LoadConfFile file=/home/dakericy/DK_pratice/DW/bin/config/test.yml ok
