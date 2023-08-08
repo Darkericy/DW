@@ -141,4 +141,8 @@ std::string TcpServer::toString(const std::string& prefix) {
     return ss.str();
 }
 
+void TcpServer::setConf(const TcpServerConf& v) {
+    m_conf.reset(new TcpServerConf(v));
+}
+
 }

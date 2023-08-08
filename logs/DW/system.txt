@@ -1,1 +1,1 @@
-2023-08-08 15:33:25	15314	UNKNOW	0	[INFO]	[system]	DW/config.cc:91	LoadConfFile file=/home/dakericy/DK_pratice/DW/bin/config/test.yml ok
+2023-08-08 16:25:39	19843	UNKNOW	0	[INFO]	[system]	DW/config.cc:88	LoadConfFile file=/home/dakericy/DK_pratice/DW/bin/conf/test.yml ok

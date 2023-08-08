@@ -1,14 +1,1 @@
-2023-08-08 15:33:25	15314	UNKNOW	0	[INFO]	[root]	DW/log.cc:652	on_logger_conf_changed
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=tcp_server.read_timeout description=tcp server read timeout typename=m value=120000
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=http.response.max_body_size description=http response max body size typename=m value=67108864
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=http.response.buffer_size description=http response buffer size typename=m value=4096
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=daemon.restart_interval description=daemon restart interval typename=j value=5
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=http.request.max_body_size description=http request max body size typename=m value=67108864
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=http.request.buffer_size description=http request buffer size typename=m value=4096
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=tcp.connect.timeout description=tcp connect timeout typename=i value=5000
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=fiber.stack_size description=fiber stack size typename=j value=1048576
-2023-08-08 15:33:30	15314	UNKNOW	0	[INFO]	[root]	tests/test_config.cc:163	name=logs description=logs config typename=St3setIN2DW9LogDefineESt4lessIS1_ESaIS1_EE value=- name: root
-  level: DEBUG
-  appenders:
-    - type: FileLogAppender
-      file: ./logs/DW/mutex.txt
+2023-08-08 16:25:39	19843	UNKNOW	0	[INFO]	[root]	DW/log.cc:652	on_logger_conf_changed

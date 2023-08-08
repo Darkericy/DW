@@ -36,6 +36,7 @@ set(
     DW/http/http_connection.cc
     DW/daemon.cc
     DW/env.cc
+    DW/application.cc
 )
 
 set(LIBS
@@ -60,6 +61,7 @@ DW_add_executable(test_http_connection "tests/test_http_connection.cc" DW "${LIB
 DW_add_executable(my_http_server "samples/my_http_server.cc" DW "${LIBS}")
 DW_add_executable(test_daemon "tests/test_daemon.cc" DW "${LIBS}")
 DW_add_executable(test_env "tests/test_env.cc" DW "${LIBS}")
+DW_add_executable(test_application "tests/test_application.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)

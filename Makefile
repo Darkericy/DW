@@ -237,6 +237,19 @@ test_env/fast:
 .PHONY : test_env/fast
 
 #=============================================================================
+# Target rules for targets named test_application
+
+# Build rule for target.
+test_application: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_application
+.PHONY : test_application
+
+# fast build rule for target.
+test_application/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/build
+.PHONY : test_application/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -402,6 +415,30 @@ DW/address.s: DW/address.cc.s
 DW/address.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/address.cc.s
 .PHONY : DW/address.cc.s
+
+DW/application.o: DW/application.cc.o
+.PHONY : DW/application.o
+
+# target to build an object file
+DW/application.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/application.cc.o
+.PHONY : DW/application.cc.o
+
+DW/application.i: DW/application.cc.i
+.PHONY : DW/application.i
+
+# target to preprocess a source file
+DW/application.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/application.cc.i
+.PHONY : DW/application.cc.i
+
+DW/application.s: DW/application.cc.s
+.PHONY : DW/application.s
+
+# target to generate assembly for a file
+DW/application.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/application.cc.s
+.PHONY : DW/application.cc.s
 
 DW/bytearray.o: DW/bytearray.cc.o
 .PHONY : DW/bytearray.o
@@ -1123,6 +1160,30 @@ tests/test_address.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.s
 .PHONY : tests/test_address.cc.s
 
+tests/test_application.o: tests/test_application.cc.o
+.PHONY : tests/test_application.o
+
+# target to build an object file
+tests/test_application.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/tests/test_application.cc.o
+.PHONY : tests/test_application.cc.o
+
+tests/test_application.i: tests/test_application.cc.i
+.PHONY : tests/test_application.i
+
+# target to preprocess a source file
+tests/test_application.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/tests/test_application.cc.i
+.PHONY : tests/test_application.cc.i
+
+tests/test_application.s: tests/test_application.cc.s
+.PHONY : tests/test_application.s
+
+# target to generate assembly for a file
+tests/test_application.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/tests/test_application.cc.s
+.PHONY : tests/test_application.cc.s
+
 tests/test_bytearray.o: tests/test_bytearray.cc.o
 .PHONY : tests/test_bytearray.o
 
@@ -1519,6 +1580,7 @@ help:
 	@echo "... echo_server"
 	@echo "... my_http_server"
 	@echo "... test_address"
+	@echo "... test_application"
 	@echo "... test_bytearray"
 	@echo "... test_config"
 	@echo "... test_daemon"
@@ -1538,6 +1600,9 @@ help:
 	@echo "... DW/address.o"
 	@echo "... DW/address.i"
 	@echo "... DW/address.s"
+	@echo "... DW/application.o"
+	@echo "... DW/application.i"
+	@echo "... DW/application.s"
 	@echo "... DW/bytearray.o"
 	@echo "... DW/bytearray.i"
 	@echo "... DW/bytearray.s"
@@ -1628,6 +1693,9 @@ help:
 	@echo "... tests/test_address.o"
 	@echo "... tests/test_address.i"
 	@echo "... tests/test_address.s"
+	@echo "... tests/test_application.o"
+	@echo "... tests/test_application.i"
+	@echo "... tests/test_application.s"
 	@echo "... tests/test_bytearray.o"
 	@echo "... tests/test_bytearray.i"
 	@echo "... tests/test_bytearray.s"
