@@ -34,6 +34,7 @@ set(
     DW/http/servlet.cc
     DW/http/http_server.cc
     DW/http/http_connection.cc
+    DW/daemon.cc
 )
 
 set(LIBS
@@ -55,6 +56,8 @@ DW_add_executable(test_parser "tests/test_parser.cc" DW "${LIBS}")
 DW_add_executable(echo_server "example/echo_server.cc" DW "${LIBS}")
 DW_add_executable(test_http_server "tests/test_http_server.cc" DW "${LIBS}")
 DW_add_executable(test_http_connection "tests/test_http_connection.cc" DW "${LIBS}")
+DW_add_executable(my_http_server "samples/my_http_server.cc" DW "${LIBS}")
+DW_add_executable(test_daemon "tests/test_daemon.cc" DW "${LIBS}")
 
 add_executable(testlog tests/testlog.cc)
 add_dependencies(testlog DW)

@@ -217,16 +217,16 @@ namespace DW {
                 cb_fiber->swapIn();
                 --m_activeThreadCount;
                 if(cb_fiber->getState() == Fiber::READY) {
-                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "ready");
+                    // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "ready");
                     schedule(cb_fiber);
                     cb_fiber.reset();
                 } else if(cb_fiber->getState() == Fiber::EXCEPT
                         || cb_fiber->getState() == Fiber::TERM) {
-                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "nullptr");
+                    // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "nullptr");
                     cb_fiber->reset(nullptr);   //释放潜在资源
                 } else {//if(cb_fiber->getState() != Fiber::TERM) {
                     //cb_fiber->m_state = Fiber::HOLD;
-                    DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "other");
+                    // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "other");
                     cb_fiber.reset();
                 }
             } else {

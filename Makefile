@@ -198,6 +198,32 @@ test_http_connection/fast:
 .PHONY : test_http_connection/fast
 
 #=============================================================================
+# Target rules for targets named my_http_server
+
+# Build rule for target.
+my_http_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_http_server
+.PHONY : my_http_server
+
+# fast build rule for target.
+my_http_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/build
+.PHONY : my_http_server/fast
+
+#=============================================================================
+# Target rules for targets named test_daemon
+
+# Build rule for target.
+test_daemon: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_daemon
+.PHONY : test_daemon
+
+# fast build rule for target.
+test_daemon/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/build
+.PHONY : test_daemon/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -411,6 +437,30 @@ DW/config.s: DW/config.cc.s
 DW/config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/config.cc.s
 .PHONY : DW/config.cc.s
+
+DW/daemon.o: DW/daemon.cc.o
+.PHONY : DW/daemon.o
+
+# target to build an object file
+DW/daemon.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/daemon.cc.o
+.PHONY : DW/daemon.cc.o
+
+DW/daemon.i: DW/daemon.cc.i
+.PHONY : DW/daemon.i
+
+# target to preprocess a source file
+DW/daemon.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/daemon.cc.i
+.PHONY : DW/daemon.cc.i
+
+DW/daemon.s: DW/daemon.cc.s
+.PHONY : DW/daemon.s
+
+# target to generate assembly for a file
+DW/daemon.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/daemon.cc.s
+.PHONY : DW/daemon.cc.s
 
 DW/fd_manager.o: DW/fd_manager.cc.o
 .PHONY : DW/fd_manager.o
@@ -988,6 +1038,30 @@ example/echo_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/example/echo_server.cc.s
 .PHONY : example/echo_server.cc.s
 
+samples/my_http_server.o: samples/my_http_server.cc.o
+.PHONY : samples/my_http_server.o
+
+# target to build an object file
+samples/my_http_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/samples/my_http_server.cc.o
+.PHONY : samples/my_http_server.cc.o
+
+samples/my_http_server.i: samples/my_http_server.cc.i
+.PHONY : samples/my_http_server.i
+
+# target to preprocess a source file
+samples/my_http_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/samples/my_http_server.cc.i
+.PHONY : samples/my_http_server.cc.i
+
+samples/my_http_server.s: samples/my_http_server.cc.s
+.PHONY : samples/my_http_server.s
+
+# target to generate assembly for a file
+samples/my_http_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/samples/my_http_server.cc.s
+.PHONY : samples/my_http_server.cc.s
+
 tests/test_address.o: tests/test_address.cc.o
 .PHONY : tests/test_address.o
 
@@ -1059,6 +1133,30 @@ tests/test_config.s: tests/test_config.cc.s
 tests/test_config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
 .PHONY : tests/test_config.cc.s
+
+tests/test_daemon.o: tests/test_daemon.cc.o
+.PHONY : tests/test_daemon.o
+
+# target to build an object file
+tests/test_daemon.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/tests/test_daemon.cc.o
+.PHONY : tests/test_daemon.cc.o
+
+tests/test_daemon.i: tests/test_daemon.cc.i
+.PHONY : tests/test_daemon.i
+
+# target to preprocess a source file
+tests/test_daemon.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/tests/test_daemon.cc.i
+.PHONY : tests/test_daemon.cc.i
+
+tests/test_daemon.s: tests/test_daemon.cc.s
+.PHONY : tests/test_daemon.s
+
+# target to generate assembly for a file
+tests/test_daemon.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/tests/test_daemon.cc.s
+.PHONY : tests/test_daemon.cc.s
 
 tests/test_fiber.o: tests/test_fiber.cc.o
 .PHONY : tests/test_fiber.o
@@ -1358,9 +1456,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... DW"
 	@echo "... echo_server"
+	@echo "... my_http_server"
 	@echo "... test_address"
 	@echo "... test_bytearray"
 	@echo "... test_config"
+	@echo "... test_daemon"
 	@echo "... test_fiber"
 	@echo "... test_hook"
 	@echo "... test_http"
@@ -1382,6 +1482,9 @@ help:
 	@echo "... DW/config.o"
 	@echo "... DW/config.i"
 	@echo "... DW/config.s"
+	@echo "... DW/daemon.o"
+	@echo "... DW/daemon.i"
+	@echo "... DW/daemon.s"
 	@echo "... DW/fd_manager.o"
 	@echo "... DW/fd_manager.i"
 	@echo "... DW/fd_manager.s"
@@ -1454,6 +1557,9 @@ help:
 	@echo "... example/echo_server.o"
 	@echo "... example/echo_server.i"
 	@echo "... example/echo_server.s"
+	@echo "... samples/my_http_server.o"
+	@echo "... samples/my_http_server.i"
+	@echo "... samples/my_http_server.s"
 	@echo "... tests/test_address.o"
 	@echo "... tests/test_address.i"
 	@echo "... tests/test_address.s"
@@ -1463,6 +1569,9 @@ help:
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"
+	@echo "... tests/test_daemon.o"
+	@echo "... tests/test_daemon.i"
+	@echo "... tests/test_daemon.s"
 	@echo "... tests/test_fiber.o"
 	@echo "... tests/test_fiber.i"
 	@echo "... tests/test_fiber.s"
