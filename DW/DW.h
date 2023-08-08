@@ -5,6 +5,7 @@
 #include "config.h"
 #include "daemon.h"
 #include "endian.h"
+#include "env.h"
 #include "fd_manager.h"
 #include "fiber.h"
 #include "hook.h"

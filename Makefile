@@ -224,6 +224,19 @@ test_daemon/fast:
 .PHONY : test_daemon/fast
 
 #=============================================================================
+# Target rules for targets named test_env
+
+# Build rule for target.
+test_env: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_env
+.PHONY : test_env
+
+# fast build rule for target.
+test_env/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/build
+.PHONY : test_env/fast
+
+#=============================================================================
 # Target rules for targets named testlog
 
 # Build rule for target.
@@ -461,6 +474,30 @@ DW/daemon.s: DW/daemon.cc.s
 DW/daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/daemon.cc.s
 .PHONY : DW/daemon.cc.s
+
+DW/env.o: DW/env.cc.o
+.PHONY : DW/env.o
+
+# target to build an object file
+DW/env.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/env.cc.o
+.PHONY : DW/env.cc.o
+
+DW/env.i: DW/env.cc.i
+.PHONY : DW/env.i
+
+# target to preprocess a source file
+DW/env.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/env.cc.i
+.PHONY : DW/env.cc.i
+
+DW/env.s: DW/env.cc.s
+.PHONY : DW/env.s
+
+# target to generate assembly for a file
+DW/env.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DW.dir/build.make CMakeFiles/DW.dir/DW/env.cc.s
+.PHONY : DW/env.cc.s
 
 DW/fd_manager.o: DW/fd_manager.cc.o
 .PHONY : DW/fd_manager.o
@@ -1158,6 +1195,30 @@ tests/test_daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/tests/test_daemon.cc.s
 .PHONY : tests/test_daemon.cc.s
 
+tests/test_env.o: tests/test_env.cc.o
+.PHONY : tests/test_env.o
+
+# target to build an object file
+tests/test_env.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/tests/test_env.cc.o
+.PHONY : tests/test_env.cc.o
+
+tests/test_env.i: tests/test_env.cc.i
+.PHONY : tests/test_env.i
+
+# target to preprocess a source file
+tests/test_env.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/tests/test_env.cc.i
+.PHONY : tests/test_env.cc.i
+
+tests/test_env.s: tests/test_env.cc.s
+.PHONY : tests/test_env.s
+
+# target to generate assembly for a file
+tests/test_env.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/tests/test_env.cc.s
+.PHONY : tests/test_env.cc.s
+
 tests/test_fiber.o: tests/test_fiber.cc.o
 .PHONY : tests/test_fiber.o
 
@@ -1461,6 +1522,7 @@ help:
 	@echo "... test_bytearray"
 	@echo "... test_config"
 	@echo "... test_daemon"
+	@echo "... test_env"
 	@echo "... test_fiber"
 	@echo "... test_hook"
 	@echo "... test_http"
@@ -1485,6 +1547,9 @@ help:
 	@echo "... DW/daemon.o"
 	@echo "... DW/daemon.i"
 	@echo "... DW/daemon.s"
+	@echo "... DW/env.o"
+	@echo "... DW/env.i"
+	@echo "... DW/env.s"
 	@echo "... DW/fd_manager.o"
 	@echo "... DW/fd_manager.i"
 	@echo "... DW/fd_manager.s"
@@ -1572,6 +1637,9 @@ help:
 	@echo "... tests/test_daemon.o"
 	@echo "... tests/test_daemon.i"
 	@echo "... tests/test_daemon.s"
+	@echo "... tests/test_env.o"
+	@echo "... tests/test_env.i"
+	@echo "... tests/test_env.s"
 	@echo "... tests/test_fiber.o"
 	@echo "... tests/test_fiber.i"
 	@echo "... tests/test_fiber.s"
