@@ -319,8 +319,10 @@ namespace DW {
                 } else {
                     next_timeout = MAX_TIMEOUT;
                 }
-                //static const int MAX_TIMEOUT = 3000;
+                // static const int MAX_TIMEOUT = 3000;
+                // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING(m_epfd));
                 rt = epoll_wait(m_epfd, events, MAX_EVNETS, static_cast<int>(next_timeout));
+                // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("epoll_wait wakeup ", rt));
                 if(rt < 0 && errno == EINTR) {
                 } else {
                     break;

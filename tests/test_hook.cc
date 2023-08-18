@@ -9,7 +9,7 @@
 DW::Logger::ptr g_logger = DW::DW_LOG_ROOT();
 
 void test_sleep() {
-    DW::IOManager iom(1);
+    DW::IOManager iom(2);
     iom.schedule([](){
         sleep(2);
         DW::DW_LOG_INFO(g_logger, __FILE__, __LINE__, DW::TOSTRING("sleep 2"));
@@ -63,8 +63,8 @@ void test_sock() {
 }
 
 int main(int argc, char** argv) {
-    // test_sleep();
-    DW::IOManager iom;
-    iom.schedule(test_sock);
+    test_sleep();
+    // DW::IOManager iom(3);
+    // iom.schedule(test_sock);
     return 0;
 }

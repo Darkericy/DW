@@ -21,7 +21,7 @@ void run() {
 }
 
 int main(int argc, char** argv) {
-    DW::IOManager iom(8);
+    DW::IOManager iom(2);
     // worker.reset(new DW::IOManager(2));
     iom.schedule(run);
     return 0;

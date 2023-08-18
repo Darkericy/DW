@@ -194,7 +194,7 @@ namespace DW {
 
             if(ft.fiber && (ft.fiber->getState() != Fiber::TERM
                             && ft.fiber->getState() != Fiber::EXCEPT)) {
-                DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("get mission id= ", GetThreadId()));
+                DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("get missionfiber id= ", GetThreadId()));
                 ft.fiber->swapIn();
                 --m_activeThreadCount;
 
@@ -206,13 +206,15 @@ namespace DW {
                 }
                 ft.reset();
             } else if(ft.cb) {
-                DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("get mission id= ", GetThreadId()));
+                DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("get missioncb id= ", GetThreadId()));
                 if(cb_fiber) {
+                    // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "reset");
                     cb_fiber->reset(ft.cb);
                 } else {
+                    // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "new");
                     cb_fiber.reset(new Fiber(ft.cb));
                 }
-                //DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, TOSTRING("chengmo l wo"));
+
                 ft.reset();
                 cb_fiber->swapIn();
                 --m_activeThreadCount;
@@ -223,7 +225,8 @@ namespace DW {
                 } else if(cb_fiber->getState() == Fiber::EXCEPT
                         || cb_fiber->getState() == Fiber::TERM) {
                     // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "nullptr");
-                    cb_fiber->reset(nullptr);   //释放潜在资源
+                    cb_fiber->reset(nullptr);   //释放潜在资源	DW/scheduler.cc:227	nullptr
+
                 } else {//if(cb_fiber->getState() != Fiber::TERM) {
                     //cb_fiber->m_state = Fiber::HOLD;
                     // DW_LOG_DEBUG(g_logger, __FILE__, __LINE__, "other");

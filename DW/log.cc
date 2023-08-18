@@ -480,7 +480,7 @@ namespace DW{
     LoggerManager::LoggerManager(): m_root(std::make_shared<Logger>("root")){
         //std::cout << 1;
         m_root->insertAppender(std::make_shared<StdLogAppender>());
-        m_root->setLevel(LogLevel::INFO);
+        m_root->setLevel(LogLevel::DEBUG);
         m_loggers["root"] = m_root;
     }
 
